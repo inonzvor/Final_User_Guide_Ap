@@ -1,0 +1,17 @@
+{
+  "name": "Access Point Setup Guide",
+  "short_name": "AP Setup Guide",
+  "description": "A plain-language, trilingual (EN/RU/HE) instructional guide for retail staff setting up Wi-Fi access points.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "lang": "en",
+  "dir": "ltr",
+  "background_color": "#0b1220",
+  "theme_color": "#0b1220",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

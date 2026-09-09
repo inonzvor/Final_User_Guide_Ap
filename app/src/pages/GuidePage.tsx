@@ -1,7 +1,7 @@
 import { useViewModel } from '../useViewModel';
-import { languageViewModel } from '../viewmodels';
-import { getLocalizedPower, getLocalizedSetupIntro, getLocalizedChecklist, getLocalizedSetupGuide } from '../../../src';
-import { Zap, AlertTriangle, CheckCircle2, Cable, Plug, Plus, Minus } from 'lucide-react';
+import { languageViewModel, installPromptViewModel } from '../viewmodels';
+import { getLocalizedPower, getLocalizedSetupIntro, getLocalizedChecklist, getLocalizedSetupGuide, getLocalizedInstallCopy } from '../../../src';
+import { Zap, AlertTriangle, CheckCircle2, Cable, Plug, Plus, Minus, Download } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '../lib/utils';
 
@@ -18,6 +18,8 @@ export function GuidePage() {
   const checklist = getLocalizedChecklist(lang);
   const phases = getLocalizedSetupGuide(lang);
   const [openPhase, setOpenPhase] = useState<number | null>(null);
+  const installState = useViewModel(installPromptViewModel);
+  const installCopy = getLocalizedInstallCopy(lang);
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-16">
@@ -84,7 +86,18 @@ export function GuidePage() {
           <p className="text-sm font-semibold tracking-widest uppercase text-accent">
             <Html value={intro.eyebrow} />
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-ink"><Html value={intro.h2} /></h2>
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-ink"><Html value={intro.h2} /></h2>
+            {installState.buttonVisible && (
+              <button
+                onClick={() => installPromptViewModel.promptInstall()}
+                className="inline-flex items-center gap-2 bg-accent hover:bg-accent-strong text-on-accent px-5 py-2.5 rounded-xl text-sm font-medium transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+              >
+                <Download className="w-4 h-4" />
+                {installCopy.button}
+              </button>
+            )}
+          </div>
           <p className="text-lg text-ink-soft leading-relaxed max-w-2xl"><Html value={intro.intro} /></p>
         </div>
 

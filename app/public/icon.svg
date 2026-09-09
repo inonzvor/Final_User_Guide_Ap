@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Full-bleed background: Android will clip this to its own adaptive-icon
+       mask when purpose="maskable", so the glyph below stays inside the
+       ~80%-radius safe zone; a rounded square is used as-is everywhere else
+       (browser tab, desktop shortcut, Windows tile). -->
+  <rect width="512" height="512" rx="96" fill="#0b1220"/>
+  <!-- Same "Wifi" glyph used as the in-app brand mark (see Navigation.tsx),
+       redrawn as three concentric signal arcs + a dot so it reads at any size. -->
+  <path d="M117,270 A160,160 0 0 1 395,270" fill="none" stroke="#ffffff" stroke-width="26" stroke-linecap="round"/>
+  <path d="M161,295 A110,110 0 0 1 351,295" fill="none" stroke="#ffffff" stroke-width="26" stroke-linecap="round"/>
+  <path d="M204,320 A60,60 0 0 1 308,320" fill="none" stroke="#ffffff" stroke-width="26" stroke-linecap="round"/>
+  <circle cx="256" cy="350" r="22" fill="#2dd4bf"/>
+</svg>

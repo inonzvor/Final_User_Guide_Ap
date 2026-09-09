@@ -17,6 +17,13 @@ export function ReferencePage() {
 
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
+  const getImageForModel = (modelNumber: string) => {
+    if (['DS-3WAP522-SI', 'DS-3WAP622G-SI', 'DS-3WAP622E-SI'].includes(modelNumber)) {
+      return '/DS-3WAP522-SI DS-3WAP622G-SI DS-3WAP622E-SI.png';
+    }
+    return `/${modelNumber}.png`;
+  };
+
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-20">
       
@@ -30,62 +37,80 @@ export function ReferencePage() {
           <p className="text-lg text-ink-soft max-w-2xl mx-auto"><Html value={models.intro} /></p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="flex flex-col gap-6">
           {models.models.map((m, i) => (
-            <div key={i} className="glass border border-line rounded-2xl p-6 hover:border-accent/40 hover:-translate-y-1 transition-all duration-300 flex flex-col group relative">
+            <div key={i} className="glass border border-line rounded-3xl p-6 hover:border-accent/40 hover:-translate-y-1 transition-all duration-300 flex flex-col md:flex-row gap-6 md:gap-8 group relative overflow-hidden">
               {m.unverified && (
-                <span className="absolute top-4 end-4 bg-warn/10 text-warn-dark text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">
+                <span className="absolute top-4 end-4 bg-warn/10 text-warn-dark text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider z-10">
                   Unverified
                 </span>
               )}
               {m.outdoor && (
-                <span className="absolute top-4 end-4 bg-info/10 text-info text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">
+                <span className="absolute top-4 end-4 bg-info/10 text-info text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider z-10">
                   Outdoor
                 </span>
               )}
-              <div className="w-10 h-10 rounded-xl bg-surface-raised border border-line text-ink-soft flex items-center justify-center mb-4 group-hover:bg-accent group-hover:text-on-accent transition-colors">
-                <Server className="w-5 h-5" />
-              </div>
-              <h3 className="text-lg font-bold text-ink font-mono tracking-tight break-words">{m.modelNumber}</h3>
-              
-              <div className="flex flex-wrap gap-1 my-3">
-                {m.tags.map((t, idx) => (
-                  <span key={idx} className="bg-surface-raised border border-line text-ink-soft px-2 py-0.5 rounded text-[10px] uppercase font-medium tracking-wide break-words max-w-full">
-                    {t}
-                  </span>
-                ))}
-              </div>
 
-              {m.specs && (
-                <ul className="space-y-2 flex-1 mb-4 text-sm text-ink-soft mt-2">
-                  <li className="flex items-start gap-2">
-                    <span className="opacity-50 mt-0.5 w-4">•</span>
-                    <span className="leading-tight"><Html value={m.specs.wifi} /></span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="opacity-50 mt-0.5 w-4">•</span>
-                    <span className="leading-tight"><Html value={m.specs.speed} /></span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="opacity-50 mt-0.5 w-4">•</span>
-                    <span className="leading-tight"><Html value={m.specs.ports} /></span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="opacity-50 mt-0.5 w-4">•</span>
-                    <span className="leading-tight"><Html value={m.specs.power} /></span>
-                  </li>
-                </ul>
-              )}
-              
-              <div className="bg-surface-raised px-3 py-2 rounded-lg text-xs font-medium text-ink-soft border border-line mt-auto">
-                <Html value={m.bestFor} />
-              </div>
-
-              {m.note && (
-                <div className="text-xs text-warn-dark mt-3 italic">
-                  <Html value={m.note} />
+              {/* Product Image */}
+              <div className="w-full md:w-64 h-48 md:h-auto shrink-0 bg-ink/5 rounded-2xl border border-line/50 flex items-center justify-center p-6 relative overflow-hidden group-hover:bg-ink/10 transition-colors">
+                <img 
+                  src={getImageForModel(m.modelNumber)} 
+                  alt={m.modelNumber} 
+                  className="w-full h-full object-contain drop-shadow-2xl filter group-hover:scale-105 transition-transform duration-500"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    target.nextElementSibling?.classList.remove('hidden');
+                  }}
+                />
+                <div className="hidden absolute inset-0 flex items-center justify-center text-ink-faint">
+                  <Server className="w-10 h-10 opacity-50" />
                 </div>
-              )}
+              </div>
+
+              {/* Product Details */}
+              <div className="flex-1 flex flex-col py-2">
+                <h3 className="text-2xl font-bold text-ink font-mono tracking-tight break-words mb-3">{m.modelNumber}</h3>
+                
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {m.tags.map((t, idx) => (
+                    <span key={idx} className="bg-surface-raised border border-line text-ink-soft px-2.5 py-1 rounded-md text-xs uppercase font-semibold tracking-wide">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                {m.specs && (
+                  <ul className="grid sm:grid-cols-2 gap-y-2 gap-x-6 mb-6 text-sm text-ink-soft">
+                    <li className="flex items-start gap-2">
+                      <span className="opacity-50 mt-0.5 w-4 shrink-0">•</span>
+                      <span className="leading-tight"><Html value={m.specs.wifi} /></span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="opacity-50 mt-0.5 w-4 shrink-0">•</span>
+                      <span className="leading-tight"><Html value={m.specs.speed} /></span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="opacity-50 mt-0.5 w-4 shrink-0">•</span>
+                      <span className="leading-tight"><Html value={m.specs.ports} /></span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="opacity-50 mt-0.5 w-4 shrink-0">•</span>
+                      <span className="leading-tight"><Html value={m.specs.power} /></span>
+                    </li>
+                  </ul>
+                )}
+                
+                <div className="bg-surface-raised/50 px-4 py-3 rounded-xl text-sm font-medium text-ink-soft border border-line mt-auto">
+                  <Html value={m.bestFor} />
+                </div>
+
+                {m.note && (
+                  <div className="text-sm text-warn-dark mt-4 italic flex gap-2 items-start bg-warn/5 p-3 rounded-lg border border-warn/10">
+                    <Html value={m.note} />
+                  </div>
+                )}
+              </div>
             </div>
           ))}
         </div>

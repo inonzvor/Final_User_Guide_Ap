@@ -26,16 +26,16 @@
 
 @layer base {
   :root {
-    --bg-val: oklch(12.9% .042 264.695); /* Deep dark background */
-    --surface-val: oklch(20.8% .042 265.755); /* Cards/surface */
-    --surface-raised-val: oklch(27.9% .041 260.031); /* Elevated / muted */
+    --bg-val: oklch(5% .042 264.695); /* Deep dark background */
+    --surface-val: oklch(12.8% .042 265.755); /* Cards/surface */
+    --surface-raised-val: oklch(18.9% .041 260.031); /* Elevated / muted */
     --ink-val: oklch(98.4% .003 247.858); /* White */
     --ink-soft-val: oklch(70.4% .04 256.788); /* Muted text */
     --ink-faint-val: oklch(55.1% .027 264.364); /* Ring / border muted */
     --line-val: oklch(100% 0 0 / 0.1); /* border */
     --accent-val: oklch(98.4% .003 247.858); /* Primary foreground */
     --accent-strong-val: oklch(92.9% .013 255.508); 
-    --on-accent-val: oklch(18% .04 248); /* text on accent button */
+    --on-accent-val: oklch(15% .04 248); /* text on accent button */
     --secondary-val: oklch(70.4% .04 256.788); 
     --info-val: oklch(69.6% .17 162.48); 
     --success-val: oklch(48.8% .243 264.376); 
@@ -43,9 +43,9 @@
     --warn-dark-val: oklch(64.5% .246 16.439); 
     --danger-val: oklch(70.4% .191 22.216); 
     
-    --glass-bg: oklch(100% 0 0 / 0.03);
-    --glass-border: oklch(100% 0 0 / 0.1);
-    --glass-shadow: 0 30px 80px oklch(0% 0 0 / 0.4);
+    --glass-bg: oklch(0% 0 0 / 0.2);
+    --glass-border: oklch(100% 0 0 / 0.08);
+    --glass-shadow: 0 30px 80px oklch(0% 0 0 / 0.6);
   }
   
   :root[data-theme="light"] {

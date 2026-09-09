@@ -1,0 +1,16 @@
+{
+  "name": "final-user-guide-ap",
+  "version": "0.1.0",
+  "description": "Model/ViewModel layer for the Access Point Setup Guide. UI is built separately (Google AI Studio).",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}

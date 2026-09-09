@@ -33,9 +33,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row relative" onClick={handleContentClick}>
+    <div className="min-h-screen flex flex-col lg:flex-row relative signal-grid" onClick={handleContentClick}>
       {/* Background Effect */}
-      <div className="aurora-bg" aria-hidden="true" />
+      <div className="aurora-bg opacity-30" aria-hidden="true" />
       
       {/* Mobile Top Header */}
       <MobileHeader />

@@ -18,7 +18,7 @@ export function Sidebar() {
   ] as const;
 
   return (
-    <aside className="hidden lg:flex flex-col w-72 h-screen sticky top-0 bg-surface border-e border-line p-6 shadow-[4px_0_24px_rgba(0,0,0,0.02)] z-40">
+    <aside className="hidden lg:flex flex-col w-72 h-screen sticky top-0 glass border-e border-line p-6 shadow-[4px_0_24px_rgba(0,0,0,0.02)] z-40">
       <div className="flex items-center gap-3 mb-10 text-accent">
         <div className="p-2 bg-accent/10 rounded-xl">
           <Wifi className="w-6 h-6" />
@@ -58,7 +58,7 @@ export function MobileHeader() {
   const nav = getLocalizedNav(lang);
 
   return (
-    <header className="lg:hidden sticky top-0 z-40 bg-surface/80 backdrop-blur-md border-b border-line px-4 py-3 flex items-center justify-between">
+    <header className="lg:hidden sticky top-0 z-40 glass border-b border-line px-4 py-3 flex items-center justify-between">
       <div className="flex items-center gap-2 text-accent">
         <div className="p-1.5 bg-accent/10 rounded-lg">
           <Wifi className="w-5 h-5" />
@@ -85,7 +85,7 @@ export function MobileBottomNav() {
   ] as const;
 
   return (
-    <nav className="lg:hidden fixed bottom-0 start-0 w-full bg-surface border-t border-line pb-[env(safe-area-inset-bottom)] pt-1 px-2 flex items-center justify-around z-40 shadow-[0_-4px_24px_rgba(0,0,0,0.02)]">
+    <nav className="lg:hidden fixed bottom-0 start-0 w-full glass border-t border-line pb-[env(safe-area-inset-bottom)] pt-1 px-2 flex items-center justify-around z-40 shadow-[0_-4px_24px_rgba(0,0,0,0.02)]">
       {links.map(({ id, label, icon: Icon }) => {
         const isActive = page === id;
         return (

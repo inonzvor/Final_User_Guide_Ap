@@ -24,15 +24,15 @@ export function ReferencePage() {
       <section className="space-y-8 max-w-5xl mx-auto" id="models">
         <div className="space-y-2 text-center">
           <p className="text-sm font-semibold tracking-widest uppercase text-accent">
-            {models.eyebrow}
+            <Html value={models.eyebrow} />
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-ink">{models.h2}</h2>
-          <p className="text-lg text-ink-soft max-w-2xl mx-auto">{models.intro}</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-ink"><Html value={models.h2} /></h2>
+          <p className="text-lg text-ink-soft max-w-2xl mx-auto"><Html value={models.intro} /></p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {models.models.map((m, i) => (
-            <div key={i} className="bg-surface border border-line rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col group relative">
+            <div key={i} className="glass border border-line rounded-2xl p-6 hover:border-accent/40 hover:-translate-y-1 transition-all duration-300 flex flex-col group relative">
               {m.unverified && (
                 <span className="absolute top-4 end-4 bg-warn/10 text-warn-dark text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">
                   Unverified
@@ -46,11 +46,11 @@ export function ReferencePage() {
               <div className="w-10 h-10 rounded-xl bg-surface-raised border border-line text-ink-soft flex items-center justify-center mb-4 group-hover:bg-accent group-hover:text-on-accent transition-colors">
                 <Server className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-bold text-ink font-mono tracking-tight">{m.modelNumber}</h3>
+              <h3 className="text-lg font-bold text-ink font-mono tracking-tight break-words">{m.modelNumber}</h3>
               
               <div className="flex flex-wrap gap-1 my-3">
                 {m.tags.map((t, idx) => (
-                  <span key={idx} className="bg-surface-raised border border-line text-ink-soft px-2 py-0.5 rounded text-[10px] uppercase font-medium tracking-wide">
+                  <span key={idx} className="bg-surface-raised border border-line text-ink-soft px-2 py-0.5 rounded text-[10px] uppercase font-medium tracking-wide break-words max-w-full">
                     {t}
                   </span>
                 ))}
@@ -97,25 +97,25 @@ export function ReferencePage() {
       <section className="space-y-8 max-w-3xl mx-auto" id="glossary">
         <div className="space-y-2 text-center">
           <p className="text-sm font-semibold tracking-widest uppercase text-secondary">
-            {glossary.eyebrow}
+            <Html value={glossary.eyebrow} />
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-ink flex items-center justify-center gap-3">
             <Book className="w-8 h-8 text-secondary" />
-            {glossary.h2}
+            <Html value={glossary.h2} />
           </h2>
-          <p className="text-lg text-ink-soft">{glossary.intro}</p>
+          <p className="text-lg text-ink-soft"><Html value={glossary.intro} /></p>
         </div>
 
-        <div className="bg-surface border border-line rounded-3xl p-6 md:p-10 shadow-sm">
+        <div className="glass border border-line rounded-3xl p-6 md:p-10 transition-shadow">
           <dl className="grid sm:grid-cols-2 gap-x-12 gap-y-8">
             {glossary.terms.map((t, i) => (
               <div key={i} className="space-y-2">
                 <dt className="text-lg font-bold text-ink flex items-center gap-2">
-                  <div className="w-1.5 h-4 bg-secondary rounded-full" />
-                  {t.term}
+                  <div className="w-1.5 h-4 bg-secondary rounded-full shrink-0" />
+                  <Html value={t.term} />
                 </dt>
                 <dd className="text-ink-soft text-sm leading-relaxed ps-3.5">
-                  {t.def}
+                  <Html value={t.def} />
                 </dd>
               </div>
             ))}
@@ -129,13 +129,13 @@ export function ReferencePage() {
       <section className="space-y-8 max-w-3xl mx-auto" id="help">
         <div className="space-y-2 text-center">
           <p className="text-sm font-semibold tracking-widest uppercase text-accent">
-            {faq.eyebrow}
+            <Html value={faq.eyebrow} />
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-ink flex items-center justify-center gap-3">
             <HelpCircle className="w-8 h-8 text-accent" />
-            {faq.h2}
+            <Html value={faq.h2} />
           </h2>
-          <p className="text-lg text-ink-soft">{faq.intro}</p>
+          <p className="text-lg text-ink-soft"><Html value={faq.intro} /></p>
         </div>
 
         <div className="space-y-4">
@@ -145,13 +145,13 @@ export function ReferencePage() {
               <div 
                 key={i} 
                 className={cn(
-                  "bg-surface border rounded-2xl overflow-hidden transition-colors",
-                  isOpen ? "border-accent shadow-sm" : "border-line hover:border-accent/50"
+                  "glass border rounded-2xl overflow-hidden transition-all duration-300",
+                  isOpen ? "border-accent scale-[1.01]" : "border-line hover:border-accent/50"
                 )}
               >
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : i)}
-                  className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 focus-visible:outline-none focus-visible:bg-surface-raised"
+                  className="w-full text-start px-6 py-5 flex items-center justify-between gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent"
                 >
                   <strong className="text-lg text-ink font-medium">{q.title}</strong>
                   <div className={cn(

@@ -16,62 +16,92 @@
   --color-info: var(--info-val);
   --color-success: var(--success-val);
   --color-warn: var(--warn-val);
+  --color-warn-dark: var(--warn-dark-val);
   --color-danger: var(--danger-val);
+
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, monospace;
 }
 
 @layer base {
   :root {
-    --bg-val: #e6f7f3;
-    --surface-val: #ffffff;
-    --surface-raised-val: #f1fbf8;
-    --ink-val: #0f172a;
-    --ink-soft-val: #475569;
-    --ink-faint-val: #94a3b8;
-    --line-val: #cbd5e1;
-    --accent-val: #2b6cb0;
-    --accent-strong-val: #1e4e8c;
-    --on-accent-val: #ffffff;
-    --secondary-val: #7e509e;
-    --info-val: #2b6cb0;
-    --success-val: #0d9488;
-    --warn-val: #b45309;
-    --danger-val: #dc2626;
+    --bg-val: oklch(12.9% .042 264.695); /* Deep dark background */
+    --surface-val: oklch(20.8% .042 265.755); /* Cards/surface */
+    --surface-raised-val: oklch(27.9% .041 260.031); /* Elevated / muted */
+    --ink-val: oklch(98.4% .003 247.858); /* White */
+    --ink-soft-val: oklch(70.4% .04 256.788); /* Muted text */
+    --ink-faint-val: oklch(55.1% .027 264.364); /* Ring / border muted */
+    --line-val: oklch(100% 0 0 / 0.1); /* border */
+    --accent-val: oklch(98.4% .003 247.858); /* Primary foreground */
+    --accent-strong-val: oklch(92.9% .013 255.508); 
+    --on-accent-val: oklch(18% .04 248); /* text on accent button */
+    --secondary-val: oklch(70.4% .04 256.788); 
+    --info-val: oklch(69.6% .17 162.48); 
+    --success-val: oklch(48.8% .243 264.376); 
+    --warn-val: oklch(76.9% .188 70.08); 
+    --warn-dark-val: oklch(64.5% .246 16.439); 
+    --danger-val: oklch(70.4% .191 22.216); 
+    
+    --glass-bg: oklch(100% 0 0 / 0.03);
+    --glass-border: oklch(100% 0 0 / 0.1);
+    --glass-shadow: 0 30px 80px oklch(0% 0 0 / 0.4);
   }
+  
+  :root[data-theme="light"] {
+    --bg-val: oklch(98.4% .003 247.858);
+    --surface-val: oklch(100% 0 0);
+    --surface-raised-val: oklch(96.8% .007 247.896);
+    --ink-val: oklch(12.9% .042 264.695);
+    --ink-soft-val: oklch(35% .04 256.788);
+    --ink-faint-val: oklch(70.4% .04 256.788);
+    --line-val: oklch(0% 0 0 / 0.1);
+    --accent-val: oklch(18% .04 248);
+    --accent-strong-val: oklch(12.9% .042 264.695);
+    --on-accent-val: oklch(98.4% .003 247.858);
+    --secondary-val: oklch(70.4% .04 256.788);
 
-  :root[data-theme="dark"] {
-    --bg-val: #03050f;
-    --surface-val: #1c2736;
-    --surface-raised-val: #2a374a;
-    --ink-val: #f1f5f9;
-    --ink-soft-val: #94a3b8;
-    --ink-faint-val: #475569;
-    --line-val: #334155;
-    --accent-val: #6a95cc;
-    --accent-strong-val: #8bb0e0;
-    --on-accent-val: #03050f;
-    --secondary-val: #7a5ac7;
-    --info-val: #6a95cc;
-    --success-val: #34d399;
-    --warn-val: #fbbf24;
-    --danger-val: #f87171;
+    --glass-bg: oklch(100% 0 0 / 0.5);
+    --glass-border: oklch(0% 0 0 / 0.1);
+    --glass-shadow: none;
   }
 
   body {
-    @apply bg-bg text-ink font-sans antialiased;
+    @apply bg-bg text-ink font-sans antialiased transition-colors duration-500;
     overflow-x: hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
   }
 }
 
 @layer utilities {
+  .glass {
+    -webkit-backdrop-filter: blur(22px);
+    backdrop-filter: blur(22px);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+
+  .signal-grid {
+    background-image:
+      linear-gradient(var(--line-val) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-val) 1px, transparent 1px);
+    background-size: 72px 72px;
+  }
+
   .aurora-bg {
     position: fixed;
     top: 0;
-    left: 0;
+    inset-inline-start: 0;
     width: 100vw;
     height: 100vh;
     z-index: -1;
     overflow: hidden;
     background-color: var(--bg-val);
+    transition: background-color 0.5s ease;
   }
 
   /* Desktop animated aurora */
@@ -88,17 +118,15 @@
       animation: float 20s infinite alternate ease-in-out;
       pointer-events: none;
     }
-
     .aurora-bg::before {
       background: var(--accent-val);
       top: -10vw;
-      left: -10vw;
+      inset-inline-start: -10vw;
     }
-
     .aurora-bg::after {
       background: var(--secondary-val);
       bottom: -10vw;
-      right: -10vw;
+      inset-inline-end: -10vw;
       animation-delay: -10s;
     }
   }

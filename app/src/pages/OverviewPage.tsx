@@ -1,7 +1,7 @@
 import { useViewModel } from '../useViewModel';
 import { languageViewModel } from '../viewmodels';
 import { getLocalizedHero, getLocalizedOverview } from '../../../src';
-import { ShieldCheck, Wifi, ArrowRightLeft } from 'lucide-react';
+import { ShieldCheck, Wifi, ArrowRightLeft, Globe, Router as RouterIcon, Smartphone, Laptop, ArrowRight, ArrowDown } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 function Html({ value }: { value: string }) {
@@ -20,7 +20,7 @@ export function OverviewPage() {
         <p className="text-sm font-semibold tracking-widest uppercase text-accent">
           {hero.eyebrow}
         </p>
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-ink">
+        <h1 className="display text-5xl sm:text-7xl font-semibold leading-[.95] tracking-tighter text-ink mt-8 max-w-[15ch] mx-auto uppercase">
           {hero.h1}
         </h1>
         <p className="text-lg md:text-xl text-ink-soft max-w-2xl mx-auto">
@@ -47,45 +47,86 @@ export function OverviewPage() {
       </section>
 
       {/* Network Diagram Illustration */}
-      <section className="w-full bg-surface border border-line rounded-3xl p-6 md:p-12 shadow-sm overflow-hidden relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent pointer-events-none" />
-        <div className="relative max-w-3xl mx-auto">
-          <svg viewBox="0 0 800 400" className="w-full h-auto text-ink-soft" aria-hidden="true">
-            {/* Simple network diagram: Internet -> Router -> AP -> Devices */}
-            <g stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
-              {/* Internet */}
-              <circle cx="100" cy="200" r="40" className="text-secondary fill-secondary/10" />
-              <path d="M70 200 A30 30 0 0 1 130 200" />
-              <path d="M80 185 A45 45 0 0 1 120 185" />
-              
-              {/* Lines */}
-              <path d="M140 200 L 260 200" className="stroke-accent" strokeDasharray="4 4" />
-              
-              {/* Router */}
-              <rect x="260" y="160" width="80" height="80" rx="12" className="text-ink fill-surface" />
-              <path d="M280 140 L280 160 M320 140 L320 160" />
-              <circle cx="300" cy="200" r="12" className="text-accent" />
-              
-              {/* Lines */}
-              <path d="M340 200 L 460 200" className="stroke-accent stroke-[3px]" />
-              
-              {/* AP */}
-              <circle cx="500" cy="200" r="40" className="text-accent fill-surface" strokeWidth="3" />
-              <path d="M500 160 A40 40 0 0 1 500 240" />
-              
-              {/* Wireless Signals */}
-              <path d="M560 170 A100 100 0 0 1 560 230" className="text-secondary opacity-40" />
-              <path d="M580 150 A130 130 0 0 1 580 250" className="text-secondary opacity-20" />
-              
-              {/* Devices */}
-              <rect x="660" y="100" width="60" height="40" rx="4" className="fill-surface" />
-              <path d="M670 140 L710 140 L720 150 L660 150 Z" className="fill-ink text-ink" />
-              
-              <rect x="670" y="220" width="30" height="50" rx="6" className="fill-surface" />
-            </g>
-          </svg>
-          <p className="text-center text-sm text-ink-soft mt-6">
-            <em>{ov.diagram.caption}</em>
+      <section className="w-full glass border border-line rounded-3xl p-6 md:p-12 transition-all duration-500 overflow-hidden relative group">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent pointer-events-none group-hover:from-accent/10 transition-colors duration-500" />
+        <div className="relative max-w-4xl mx-auto flex flex-col items-center">
+          
+          <div className="flex flex-col md:flex-row items-center justify-between w-full gap-6 md:gap-2 relative py-6">
+            
+            {/* Desktop Connection Line Background */}
+            <div className="hidden md:block absolute top-1/2 left-12 right-12 h-[2px] bg-line -z-0 -translate-y-1/2">
+               {/* Active portion from Router to AP */}
+               <div className="absolute top-0 left-1/3 right-1/3 h-full bg-accent" />
+            </div>
+
+            {/* Internet */}
+            <div className="flex flex-col items-center gap-3 glass p-2 z-10">
+              <div className="w-20 h-20 rounded-full bg-secondary/10 text-secondary flex items-center justify-center shadow-inner relative">
+                <Globe className="w-10 h-10" strokeWidth={1.5} />
+              </div>
+              <span className="text-xs font-bold text-ink tracking-wide uppercase">Internet</span>
+            </div>
+
+            {/* Arrow 1: Internet -> Router */}
+            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-surface-raised border border-line text-ink-soft shadow-xs z-10 shrink-0">
+              <ArrowRight className="w-4 h-4 hidden md:block text-ink-soft" strokeWidth={2.5} />
+              <ArrowDown className="w-4 h-4 md:hidden text-ink-soft" strokeWidth={2.5} />
+            </div>
+
+            {/* Modem/Router */}
+            <div className="flex flex-col items-center gap-3 glass p-2 z-10">
+              <div className="w-20 h-20 rounded-2xl bg-surface-raised border-2 border-line text-ink flex items-center justify-center relative">
+                <RouterIcon className="w-10 h-10" strokeWidth={1.5} />
+                <div className="absolute top-2 right-2 flex gap-1">
+                  <div className="w-1.5 h-1.5 rounded-full bg-success" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-success" />
+                </div>
+              </div>
+              <span className="text-xs font-bold text-ink tracking-wide uppercase">Router</span>
+            </div>
+
+            {/* Arrow 2: Router -> Access Point (Ethernet) */}
+            <div className="flex items-center justify-center w-9 h-9 rounded-full bg-accent/10 border-2 border-accent text-accent shadow-sm z-10 shrink-0">
+              <ArrowRight className="w-5 h-5 hidden md:block" strokeWidth={2.5} />
+              <ArrowDown className="w-5 h-5 md:hidden" strokeWidth={2.5} />
+            </div>
+
+            {/* Access Point */}
+            <div className="flex flex-col items-center gap-3 glass p-2 z-10">
+              <div className="relative w-24 h-24 rounded-full bg-accent text-on-accent flex items-center justify-center shadow-lg shadow-accent/20">
+                <Wifi className="w-12 h-12" strokeWidth={1.5} />
+                {/* Ping animation rings */}
+                <div className="absolute inset-0 rounded-full border-2 border-accent animate-ping opacity-20 duration-[3000ms]" />
+              </div>
+              <span className="text-xs font-bold text-accent tracking-wide uppercase">Access Point</span>
+            </div>
+
+            {/* Arrow 3: Access Point -> Devices (Wi-Fi) */}
+            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-secondary/10 border border-secondary/30 text-secondary shadow-xs z-10 shrink-0">
+              <ArrowRight className="w-4 h-4 hidden md:block" strokeWidth={2.5} />
+              <ArrowDown className="w-4 h-4 md:hidden" strokeWidth={2.5} />
+            </div>
+
+            {/* Devices */}
+            <div className="flex flex-col items-center gap-3 glass p-2 z-10">
+              <div className="flex items-center gap-3">
+                <div className="w-16 h-16 rounded-xl bg-surface-raised border-2 border-line text-ink flex items-center justify-center relative shadow-sm">
+                  <Laptop className="w-7 h-7" strokeWidth={1.5} />
+                  {/* Wireless wave indicator */}
+                  <Wifi className="w-4 h-4 text-accent absolute -top-2 -left-2 glass rounded-full" strokeWidth={3} />
+                </div>
+                <div className="w-16 h-16 rounded-xl bg-surface-raised border-2 border-line text-ink flex items-center justify-center relative shadow-sm">
+                  <Smartphone className="w-7 h-7" strokeWidth={1.5} />
+                  <Wifi className="w-4 h-4 text-accent absolute -top-2 -right-2 glass rounded-full" strokeWidth={3} />
+                </div>
+              </div>
+              <span className="text-xs font-bold text-ink tracking-wide uppercase">Devices</span>
+            </div>
+
+          </div>
+
+          <p className="text-center text-sm text-ink-soft mt-8 md:mt-12">
+            <em><Html value={ov.diagram.caption} /></em>
           </p>
         </div>
       </section>
@@ -99,17 +140,17 @@ export function OverviewPage() {
           <h2 className="text-3xl font-bold text-ink">{ov.h2}</h2>
         </div>
         
-        <p className="text-lg text-ink-soft leading-relaxed">{ov.intro}</p>
+        <p className="text-lg text-ink-soft leading-relaxed"><Html value={ov.intro} /></p>
         
         <div className="bg-surface-raised p-6 rounded-2xl text-ink leading-relaxed shadow-sm">
           <Html value={ov.p1} />
         </div>
         
         <blockquote className="border-s-4 border-accent ps-6 py-2 my-8 text-xl font-medium italic text-ink-soft bg-surface-raised/50 rounded-e-2xl">
-          {ov.calloutP}
+          <Html value={ov.calloutP} />
         </blockquote>
         
-        <p className="text-lg text-ink-soft leading-relaxed">{ov.p2}</p>
+        <p className="text-lg text-ink-soft leading-relaxed"><Html value={ov.p2} /></p>
       </section>
     </div>
   );

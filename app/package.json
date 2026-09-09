@@ -5,7 +5,7 @@
   "description": "Unstyled functional UI stub wired to the ../src Model/ViewModel layer. Not a design — a wiring check / starting point.",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0 --port 3000",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview"
   },

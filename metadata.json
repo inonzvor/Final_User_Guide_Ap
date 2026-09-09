@@ -1,0 +1,6 @@
+{
+  "name": "Access Point Setup Guide",
+  "description": "A plain-language, trilingual (EN/RU/HE) instructional guide for retail staff setting up Wi-Fi access points.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

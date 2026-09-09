@@ -121,7 +121,10 @@ export interface LocalizedPower {
   adapter: LocalizedPowerMethod;
 }
 
-function localizePowerMethod(lang: Lang, method: typeof power.poe): LocalizedPowerMethod {
+function localizePowerMethod(
+  lang: Lang,
+  method: typeof power.poe | typeof power.adapter,
+): LocalizedPowerMethod {
   return {
     title: translate(lang, method.title) ?? '',
     kicker: translate(lang, method.kicker) ?? '',

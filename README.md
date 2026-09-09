@@ -4,12 +4,18 @@ Model/ViewModel layer for the **Access Point Setup Guide** — a plain-language,
 trilingual (EN/RU/HE) instructional guide for retail staff setting up Wi-Fi
 access points.
 
-**This repo intentionally contains no UI.** No HTML, no CSS, no components.
-It's the data and behavior a UI is built on top of — the UI itself is being
-built separately in Google AI Studio. Wire that UI to the exports of this
-package (or copy `src/` straight into the AI Studio project) rather than
-re-deriving the copy, the 19-step walkthrough, or the theme/language/PWA
-install logic from scratch.
+**`src/` intentionally contains no design.** No CSS, no styled components.
+It's the data and behavior a UI is built on top of — the *real* UI is being
+built separately in Google AI Studio. Wire that UI to `src/`'s exports (or
+copy `src/` straight into the AI Studio project) rather than re-deriving the
+copy, the 19-step walkthrough, or the theme/language/PWA install logic from
+scratch.
+
+`app/` is a small, deliberately unstyled React+Vite stub that exercises
+every export of `src/` — semantic HTML only, zero CSS. It's not a design;
+it's a wiring check and a reference for which state maps to which content,
+so the AI Studio UI has a working example to match behavior against. See
+[app/README](app/README.md) for how to run it.
 
 ## Where this came from
 

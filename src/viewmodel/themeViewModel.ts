@@ -36,6 +36,11 @@ export class ThemeViewModel {
     return this.store.getState();
   }
 
+  /** Alias for getTheme(), so ThemeViewModel matches the getState() shape every other view-model uses. */
+  getState(): Theme {
+    return this.getTheme();
+  }
+
   subscribe(listener: (theme: Theme) => void): Unsubscribe {
     return this.store.subscribe(listener);
   }

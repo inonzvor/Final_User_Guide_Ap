@@ -17,7 +17,7 @@ export function InstallBanner() {
       : installPromptViewModel.resolveFallbackMessage(state.fallbackMessageKind) ?? copy.fallbackNote;
 
   return (
-    <div className="bg-surface border-b border-line px-4 py-4 md:px-8 shadow-sm">
+    <div className="bg-surface border-b border-line px-4 py-4 md:px-8">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex-1">
           <h2 className="text-base font-semibold text-ink flex items-center gap-2">

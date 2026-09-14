@@ -1,9 +1,10 @@
 import { useViewModel } from '../useViewModel';
 import { languageViewModel } from '../viewmodels';
 import { getLocalizedModels, getLocalizedGlossary, getLocalizedFaq } from '../../../src';
-import { Server, HelpCircle, Book, Plus, Minus, Cpu } from 'lucide-react';
+import { Server, HelpCircle, Book, Plus, Minus } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '../lib/utils';
+import { SectionHead } from '../components/SectionHead';
 
 function Html({ value }: { value: string }) {
   return <span dangerouslySetInnerHTML={{ __html: value }} />;
@@ -26,37 +27,29 @@ export function ReferencePage() {
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-20">
-      
-      {/* Models Section */}
-      <section className="space-y-8 max-w-5xl mx-auto" id="models">
-        <div className="space-y-2 text-center">
-          <p className="text-sm font-semibold tracking-widest uppercase text-accent">
-            <Html value={models.eyebrow} />
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-ink"><Html value={models.h2} /></h2>
-          <p className="text-lg text-ink-soft max-w-2xl mx-auto"><Html value={models.intro} /></p>
-        </div>
 
-        <div className="flex flex-col gap-6">
+      {/* Models Section */}
+      <section className="space-y-8" id="models">
+        <SectionHead eyebrow={<Html value={models.eyebrow} />} title={<Html value={models.h2} />} description={models.intro} />
+
+        <div className="flex flex-col gap-px bg-line border border-line">
           {models.models.map((m, i) => (
-            <div key={i} className="glass border border-line rounded-3xl p-6 hover:border-accent/40 hover:-translate-y-1 transition-all duration-300 flex flex-col md:flex-row gap-6 md:gap-8 group relative overflow-hidden">
-              {m.unverified && (
-                <span className="absolute top-4 end-4 bg-warn/10 text-warn-dark text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider z-10">
-                  Unverified
-                </span>
-              )}
-              {m.outdoor && (
-                <span className="absolute top-4 end-4 bg-info/10 text-info text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider z-10">
-                  Outdoor
+            <div key={i} className="bg-bg p-6 hover:bg-surface transition-colors duration-300 flex flex-col md:flex-row gap-6 md:gap-8 relative">
+              {(m.unverified || m.outdoor) && (
+                <span className={cn(
+                  "absolute top-4 end-4 text-[10px] font-mono px-2 py-1 uppercase tracking-wider z-10 border",
+                  m.unverified ? "text-warn-dark border-warn/40" : "text-info border-info/40"
+                )}>
+                  {m.unverified ? 'Unverified' : 'Outdoor'}
                 </span>
               )}
 
               {/* Product Image */}
-              <div className="w-full md:w-64 h-48 md:h-auto shrink-0 bg-ink/5 rounded-2xl border border-line/50 flex items-center justify-center p-6 relative overflow-hidden group-hover:bg-ink/10 transition-colors">
-                <img 
-                  src={getImageForModel(m.modelNumber)} 
-                  alt={m.modelNumber} 
-                  className="w-full h-full object-contain drop-shadow-2xl filter group-hover:scale-105 transition-transform duration-500"
+              <div className="w-full md:w-64 h-48 md:h-auto shrink-0 border border-line bg-surface flex items-center justify-center p-6 relative overflow-hidden">
+                <img
+                  src={getImageForModel(m.modelNumber)}
+                  alt={m.modelNumber}
+                  className="w-full h-full object-contain"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.style.display = 'none';
@@ -69,12 +62,12 @@ export function ReferencePage() {
               </div>
 
               {/* Product Details */}
-              <div className="flex-1 flex flex-col py-2">
+              <div className="flex-1 flex flex-col py-2 min-w-0">
                 <h3 className="text-2xl font-bold text-ink font-mono tracking-tight break-words mb-3">{m.modelNumber}</h3>
-                
+
                 <div className="flex flex-wrap gap-2 mb-4">
                   {m.tags.map((t, idx) => (
-                    <span key={idx} className="bg-surface-raised border border-line text-ink-soft px-2.5 py-1 rounded-md text-xs uppercase font-semibold tracking-wide">
+                    <span key={idx} className="label-chip">
                       {t}
                     </span>
                   ))}
@@ -83,30 +76,30 @@ export function ReferencePage() {
                 {m.specs && (
                   <ul className="grid sm:grid-cols-2 gap-y-2 gap-x-6 mb-6 text-sm text-ink-soft">
                     <li className="flex items-start gap-2">
-                      <span className="opacity-50 mt-0.5 w-4 shrink-0">•</span>
+                      <span className="w-1 h-1 bg-ink-faint mt-2 shrink-0" />
                       <span className="leading-tight"><Html value={m.specs.wifi} /></span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="opacity-50 mt-0.5 w-4 shrink-0">•</span>
+                      <span className="w-1 h-1 bg-ink-faint mt-2 shrink-0" />
                       <span className="leading-tight"><Html value={m.specs.speed} /></span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="opacity-50 mt-0.5 w-4 shrink-0">•</span>
+                      <span className="w-1 h-1 bg-ink-faint mt-2 shrink-0" />
                       <span className="leading-tight"><Html value={m.specs.ports} /></span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="opacity-50 mt-0.5 w-4 shrink-0">•</span>
+                      <span className="w-1 h-1 bg-ink-faint mt-2 shrink-0" />
                       <span className="leading-tight"><Html value={m.specs.power} /></span>
                     </li>
                   </ul>
                 )}
-                
-                <div className="bg-surface-raised/50 px-4 py-3 rounded-xl text-sm font-medium text-ink-soft border border-line mt-auto">
+
+                <div className="border border-line px-4 py-3 text-sm font-medium text-ink-soft mt-auto">
                   <Html value={m.bestFor} />
                 </div>
 
                 {m.note && (
-                  <div className="text-sm text-warn-dark mt-4 italic flex gap-2 items-start bg-warn/5 p-3 rounded-lg border border-warn/10">
+                  <div className="text-sm text-warn-dark mt-4 italic flex gap-2 items-start border-s-2 border-warn/40 ps-3">
                     <Html value={m.note} />
                   </div>
                 )}
@@ -116,30 +109,28 @@ export function ReferencePage() {
         </div>
       </section>
 
-      <hr className="border-line max-w-4xl mx-auto" />
-
       {/* Glossary Section */}
-      <section className="space-y-8 max-w-3xl mx-auto" id="glossary">
-        <div className="space-y-2 text-center">
-          <p className="text-sm font-semibold tracking-widest uppercase text-secondary">
-            <Html value={glossary.eyebrow} />
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-ink flex items-center justify-center gap-3">
-            <Book className="w-8 h-8 text-secondary" />
-            <Html value={glossary.h2} />
-          </h2>
-          <p className="text-lg text-ink-soft"><Html value={glossary.intro} /></p>
-        </div>
+      <section className="space-y-8" id="glossary">
+        <SectionHead
+          eyebrow={glossary.eyebrow}
+          title={
+            <span className="inline-flex items-center gap-3">
+              <Book className="w-7 h-7 md:w-9 md:h-9" />
+              <Html value={glossary.h2} />
+            </span>
+          }
+          description={glossary.intro}
+        />
 
-        <div className="glass border border-line rounded-3xl p-6 md:p-10 transition-shadow">
+        <div className="border border-line p-6 md:p-10">
           <dl className="grid sm:grid-cols-2 gap-x-12 gap-y-8">
             {glossary.terms.map((t, i) => (
               <div key={i} className="space-y-2">
-                <dt className="text-lg font-bold text-ink flex items-center gap-2">
-                  <div className="w-1.5 h-4 bg-secondary rounded-full shrink-0" />
+                <dt className="text-lg font-bold text-ink flex items-center gap-3">
+                  <div className="w-1.5 h-4 bg-ink-faint shrink-0" />
                   <Html value={t.term} />
                 </dt>
-                <dd className="text-ink-soft text-sm leading-relaxed ps-3.5">
+                <dd className="text-ink-soft text-sm leading-relaxed ps-[1.125rem]">
                   <Html value={t.def} />
                 </dd>
               </div>
@@ -148,40 +139,32 @@ export function ReferencePage() {
         </div>
       </section>
 
-      <hr className="border-line max-w-4xl mx-auto" />
-
       {/* FAQ Section */}
-      <section className="space-y-8 max-w-3xl mx-auto" id="help">
-        <div className="space-y-2 text-center">
-          <p className="text-sm font-semibold tracking-widest uppercase text-accent">
-            <Html value={faq.eyebrow} />
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-ink flex items-center justify-center gap-3">
-            <HelpCircle className="w-8 h-8 text-accent" />
-            <Html value={faq.h2} />
-          </h2>
-          <p className="text-lg text-ink-soft"><Html value={faq.intro} /></p>
-        </div>
+      <section className="space-y-8" id="help">
+        <SectionHead
+          eyebrow={faq.eyebrow}
+          title={
+            <span className="inline-flex items-center gap-3">
+              <HelpCircle className="w-7 h-7 md:w-9 md:h-9" />
+              <Html value={faq.h2} />
+            </span>
+          }
+          description={faq.intro}
+        />
 
-        <div className="space-y-4">
+        <div className="border border-line divide-y divide-line">
           {faq.items.map((q, i) => {
             const isOpen = openFaq === i;
             return (
-              <div 
-                key={i} 
-                className={cn(
-                  "glass border rounded-2xl overflow-hidden transition-all duration-300",
-                  isOpen ? "border-accent scale-[1.01]" : "border-line hover:border-accent/50"
-                )}
-              >
+              <div key={i} className={cn("transition-colors duration-300", isOpen && "bg-surface")}>
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : i)}
                   className="w-full text-start px-6 py-5 flex items-center justify-between gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent"
                 >
                   <strong className="text-lg text-ink font-medium">{q.title}</strong>
                   <div className={cn(
-                    "w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors",
-                    isOpen ? "bg-accent text-on-accent" : "bg-surface-raised text-ink-soft"
+                    "w-8 h-8 border flex items-center justify-center shrink-0 transition-colors",
+                    isOpen ? "bg-accent text-on-accent border-accent" : "border-line text-ink-soft"
                   )}>
                     {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                   </div>

@@ -21,31 +21,40 @@
 
   --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, monospace;
+  --font-mono: "Space Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Blueprint aesthetic: near-square corners everywhere instead of soft SaaS radii */
+  --radius-xs: 0.0625rem;
+  --radius-sm: 0.125rem;
+  --radius-md: 0.1875rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.25rem;
+  --radius-2xl: 0.375rem;
+  --radius-3xl: 0.5rem;
 }
 
 @layer base {
   :root {
-    --bg-val: oklch(0% 0 0); /* Pure deep black */
-    --surface-val: oklch(10% 0 0); /* Sleek dark gray cards */
-    --surface-raised-val: oklch(15% 0 0); /* Elevated dark gray */
-    --ink-val: oklch(100% 0 0); /* Sharp white text */
-    --ink-soft-val: oklch(70% 0 0); /* Muted gray text */
-    --ink-faint-val: oklch(40% 0 0); /* Very muted gray */
-    --line-val: oklch(100% 0 0 / 0.12); /* Subtle glass borders */
-    --accent-val: oklch(100% 0 0); /* Sharp white accent */
-    --accent-strong-val: oklch(90% 0 0); 
-    --on-accent-val: oklch(0% 0 0); /* Black text on white accent */
-    --secondary-val: oklch(65% 0 0); 
-    --info-val: oklch(69.6% .17 162.48); 
-    --success-val: oklch(70% 0.1 150); /* Desaturated premium green */
-    --warn-val: oklch(80% 0.1 80); 
-    --warn-dark-val: oklch(40% 0.1 80); 
-    --danger-val: oklch(65% 0.15 25); 
-    
-    --glass-bg: oklch(10% 0 0 / 0.5);
-    --glass-border: oklch(100% 0 0 / 0.1);
-    --glass-shadow: 0 40px 80px -20px oklch(0% 0 0 / 1);
+    --bg-val: oklch(3% 0 0); /* Near-pure black, just enough lift for hairlines to register */
+    --surface-val: oklch(6% 0 0); /* Barely-there panel fill, mostly defined by its border */
+    --surface-raised-val: oklch(9.5% 0 0); /* Elevated dark gray */
+    --ink-val: oklch(93% 0 0); /* Off-white headline text (not clinical pure white) */
+    --ink-soft-val: oklch(58% 0 0); /* Muted gray body / caption text */
+    --ink-faint-val: oklch(40% 0 0); /* Dim gray for micro-labels & spec tags */
+    --line-val: oklch(100% 0 0 / 0.1); /* Hairline borders + grid */
+    --accent-val: oklch(93% 0 0); /* The "identity" tone is white, not a hue */
+    --accent-strong-val: oklch(100% 0 0);
+    --on-accent-val: oklch(4% 0 0); /* Black text on white accent */
+    --secondary-val: oklch(58% 0 0);
+    --info-val: oklch(78% 0.05 220); /* Desaturated toward monochrome, hue kept only as a whisper */
+    --success-val: oklch(78% 0.045 150);
+    --warn-val: oklch(82% 0.05 80);
+    --warn-dark-val: oklch(58% 0.045 80);
+    --danger-val: oklch(74% 0.06 25);
+
+    --glass-bg: var(--surface-val);
+    --glass-border: var(--line-val);
+    --glass-shadow: none;
   }
   
   :root[data-theme="light"] {
@@ -78,8 +87,6 @@
 
 @layer utilities {
   .glass {
-    -webkit-backdrop-filter: blur(24px);
-    backdrop-filter: blur(24px);
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
@@ -91,6 +98,42 @@
       linear-gradient(90deg, var(--line-val) 1px, transparent 1px);
     background-size: 72px 72px;
   }
+}
+
+/* Blueprint / spec-sheet annotation system — small mono-spaced tags used
+   throughout as section markers, field labels and callout chips. */
+@utility label-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+}
+
+@utility label-chip {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border: 1px solid var(--color-line);
+  padding: 0.375rem 0.625rem;
+}
+
+@utility section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+@layer utilities {
 
   .aurora-bg {
     position: fixed;

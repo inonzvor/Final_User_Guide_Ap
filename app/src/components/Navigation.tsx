@@ -18,29 +18,32 @@ export function Sidebar() {
   ] as const;
 
   return (
-    <aside className="hidden lg:flex flex-col w-72 h-screen sticky top-0 glass border-e border-line p-6 shadow-[4px_0_24px_rgba(0,0,0,0.02)] z-40">
-      <div className="flex items-center gap-3 mb-10 text-accent">
-        <div className="p-2 bg-accent/10 rounded-xl">
-          <Wifi className="w-6 h-6" />
+    <aside className="hidden lg:flex flex-col w-72 h-screen sticky top-0 glass border-e border-line p-6 z-40">
+      <div className="flex items-center gap-3 mb-10">
+        <div className="w-10 h-10 border border-line flex items-center justify-center text-ink shrink-0">
+          <Wifi className="w-5 h-5" />
         </div>
-        <span className="font-bold text-lg text-ink tracking-tight">{nav.brand}</span>
+        <span className="font-bold text-lg text-ink tracking-tight uppercase">{nav.brand}</span>
       </div>
 
-      <nav className="flex-1 space-y-2" aria-label={nav.ariaLabel}>
-        {links.map(({ id, label, icon: Icon }) => (
+      <nav className="flex-1 space-y-1" aria-label={nav.ariaLabel}>
+        {links.map(({ id, label, icon: Icon }, i) => (
           <button
             key={id}
             onClick={() => navigationViewModel.showPage(id)}
             className={cn(
-              "w-full flex items-center gap-3 px-4 py-3 rounded-xl text-start font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
-              page === id 
-                ? "bg-accent text-on-accent shadow-md shadow-accent/20" 
-                : "text-ink-soft hover:bg-surface-raised hover:text-ink"
+              "w-full flex items-center gap-3 px-4 py-3 border text-start font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+              page === id
+                ? "bg-accent text-on-accent border-accent"
+                : "border-transparent text-ink-soft hover:border-line hover:text-ink"
             )}
             aria-current={page === id ? 'page' : undefined}
           >
-            <Icon className="w-5 h-5 opacity-90" />
-            {label}
+            <Icon className="w-5 h-5 opacity-90 shrink-0" />
+            <span className="flex-1">{label}</span>
+            <span className={cn("label-tag", page === id ? "text-on-accent/60" : "")}>
+              {String(i + 1).padStart(2, '0')}
+            </span>
           </button>
         ))}
       </nav>
@@ -59,11 +62,11 @@ export function MobileHeader() {
 
   return (
     <header className="lg:hidden sticky top-0 z-40 glass border-b border-line px-4 py-3 flex items-center justify-between">
-      <div className="flex items-center gap-2 text-accent">
-        <div className="p-1.5 bg-accent/10 rounded-lg">
-          <Wifi className="w-5 h-5" />
+      <div className="flex items-center gap-2">
+        <div className="w-8 h-8 border border-line flex items-center justify-center text-ink shrink-0">
+          <Wifi className="w-4 h-4" />
         </div>
-        <span className="font-bold text-base text-ink tracking-tight">{nav.brand}</span>
+        <span className="font-bold text-base text-ink tracking-tight uppercase">{nav.brand}</span>
       </div>
       <div className="flex items-center gap-1">
         <LangToggle />
@@ -85,7 +88,7 @@ export function MobileBottomNav() {
   ] as const;
 
   return (
-    <nav className="lg:hidden fixed bottom-0 start-0 w-full glass border-t border-line pb-[env(safe-area-inset-bottom)] pt-1 px-2 flex items-center justify-around z-40 shadow-[0_-4px_24px_rgba(0,0,0,0.02)]">
+    <nav className="lg:hidden fixed bottom-0 start-0 w-full glass border-t border-line pb-[env(safe-area-inset-bottom)] pt-1 px-2 flex items-center justify-around z-40">
       {links.map(({ id, label, icon: Icon }) => {
         const isActive = page === id;
         return (
@@ -93,8 +96,8 @@ export function MobileBottomNav() {
             key={id}
             onClick={() => navigationViewModel.showPage(id)}
             className={cn(
-              "flex flex-col items-center gap-1 p-2 min-w-[64px] rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
-              isActive ? "text-accent" : "text-ink-soft hover:text-ink hover:bg-surface-raised"
+              "flex flex-col items-center gap-1 p-2 min-w-[64px] border-t-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+              isActive ? "text-ink border-ink" : "text-ink-soft border-transparent hover:text-ink"
             )}
             aria-current={isActive ? 'page' : undefined}
           >

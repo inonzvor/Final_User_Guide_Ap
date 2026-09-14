@@ -26,26 +26,26 @@
 
 @layer base {
   :root {
-    --bg-val: oklch(12.9% .042 264.695); /* Deep dark background */
-    --surface-val: oklch(20.8% .042 265.755); /* Cards/surface */
-    --surface-raised-val: oklch(27.9% .041 260.031); /* Elevated / muted */
-    --ink-val: oklch(98.4% .003 247.858); /* White */
-    --ink-soft-val: oklch(70.4% .04 256.788); /* Muted text */
-    --ink-faint-val: oklch(55.1% .027 264.364); /* Ring / border muted */
-    --line-val: oklch(100% 0 0 / 0.1); /* border */
-    --accent-val: oklch(98.4% .003 247.858); /* Primary foreground */
-    --accent-strong-val: oklch(92.9% .013 255.508); 
-    --on-accent-val: oklch(18% .04 248); /* text on accent button */
-    --secondary-val: oklch(70.4% .04 256.788); 
+    --bg-val: oklch(0% 0 0); /* Pure deep black */
+    --surface-val: oklch(10% 0 0); /* Sleek dark gray cards */
+    --surface-raised-val: oklch(15% 0 0); /* Elevated dark gray */
+    --ink-val: oklch(100% 0 0); /* Sharp white text */
+    --ink-soft-val: oklch(70% 0 0); /* Muted gray text */
+    --ink-faint-val: oklch(40% 0 0); /* Very muted gray */
+    --line-val: oklch(100% 0 0 / 0.12); /* Subtle glass borders */
+    --accent-val: oklch(100% 0 0); /* Sharp white accent */
+    --accent-strong-val: oklch(90% 0 0); 
+    --on-accent-val: oklch(0% 0 0); /* Black text on white accent */
+    --secondary-val: oklch(65% 0 0); 
     --info-val: oklch(69.6% .17 162.48); 
-    --success-val: oklch(48.8% .243 264.376); 
-    --warn-val: oklch(76.9% .188 70.08); 
-    --warn-dark-val: oklch(64.5% .246 16.439); 
-    --danger-val: oklch(70.4% .191 22.216); 
+    --success-val: oklch(70% 0.1 150); /* Desaturated premium green */
+    --warn-val: oklch(80% 0.1 80); 
+    --warn-dark-val: oklch(40% 0.1 80); 
+    --danger-val: oklch(65% 0.15 25); 
     
-    --glass-bg: oklch(100% 0 0 / 0.03);
+    --glass-bg: oklch(10% 0 0 / 0.5);
     --glass-border: oklch(100% 0 0 / 0.1);
-    --glass-shadow: 0 30px 80px oklch(0% 0 0 / 0.4);
+    --glass-shadow: 0 40px 80px -20px oklch(0% 0 0 / 1);
   }
   
   :root[data-theme="light"] {
@@ -78,8 +78,8 @@
 
 @layer utilities {
   .glass {
-    -webkit-backdrop-filter: blur(22px);
-    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);

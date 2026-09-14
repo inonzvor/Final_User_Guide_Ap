@@ -1,51 +1,98 @@
 import { useViewModel } from '../useViewModel';
 import { navigationViewModel, languageViewModel } from '../viewmodels';
 import { getLocalizedNav } from '../../../src';
+import { FileText, Book, HelpCircle, Server, Menu, X, Rocket } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { LangToggle } from './LangToggle';
-import { BookOpen, ListChecks, Server, Wifi } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { useState } from 'react';
+
+const ICONS = {
+  overview: FileText,
+  power: ZapIcon,
+  setup: Rocket,
+  models: Server,
+  glossary: Book,
+  help: HelpCircle,
+} as const;
+
+// Temporary placeholder for Zap since we want to avoid import conflicts or use something else
+function ZapIcon(props: any) {
+  return (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+    </svg>
+  );
+}
 
 export function Sidebar() {
+  const { page, scrollTargetId } = useViewModel(navigationViewModel);
+  const currentPage = scrollTargetId || page;
   const { lang } = useViewModel(languageViewModel);
-  const { page } = useViewModel(navigationViewModel);
   const nav = getLocalizedNav(lang);
 
-  const links = [
-    { id: 'overview', label: nav.overview, icon: BookOpen },
-    { id: 'guide', label: nav.setup, icon: ListChecks },
-    { id: 'reference', label: nav.models, icon: Server },
-  ] as const;
-
   return (
-    <aside className="hidden lg:flex flex-col w-72 h-screen sticky top-0 glass border-e border-line p-6 shadow-[4px_0_24px_rgba(0,0,0,0.02)] z-40">
-      <div className="flex items-center gap-3 mb-10 text-accent">
+    <aside className="hidden lg:flex flex-col w-72 h-screen sticky top-0 border-r border-line bg-surface/30 backdrop-blur-xl shrink-0 py-8 z-50">
+      <div className="px-8 mb-12 flex items-center gap-3">
         <div className="p-2 bg-accent/10 rounded-xl">
-          <Wifi className="w-6 h-6" />
+          <Server className="w-6 h-6 text-accent" />
         </div>
-        <span className="font-bold text-lg text-ink tracking-tight">{nav.brand}</span>
+        <span className="font-display font-bold tracking-tight text-ink uppercase">{nav.brand}</span>
       </div>
 
-      <nav className="flex-1 space-y-2" aria-label={nav.ariaLabel}>
-        {links.map(({ id, label, icon: Icon }) => (
-          <button
-            key={id}
-            onClick={() => navigationViewModel.showPage(id)}
-            className={cn(
-              "w-full flex items-center gap-3 px-4 py-3 rounded-xl text-start font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
-              page === id 
-                ? "bg-accent text-on-accent shadow-md shadow-accent/20" 
-                : "text-ink-soft hover:bg-surface-raised hover:text-ink"
-            )}
-            aria-current={page === id ? 'page' : undefined}
-          >
-            <Icon className="w-5 h-5 opacity-90" />
-            {label}
-          </button>
-        ))}
+      <nav className="flex-1 px-4 space-y-8 overflow-y-auto">
+        <div className="space-y-2">
+          {['overview', 'power', 'setup'].map((id) => {
+            const Icon = ICONS[id as keyof typeof ICONS];
+            const isActive = currentPage === id;
+            return (
+              <a
+                key={id}
+                href={`#${id}`}
+                onClick={(e) => { e.preventDefault(); navigationViewModel.navigateToAnchor(id); }}
+                className={cn(
+                  "w-full flex items-center gap-3 px-4 py-3 rounded-xl text-start font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+                  isActive 
+                    ? "bg-surface-raised text-accent shadow-sm border border-line" 
+                    : "text-ink-soft hover:bg-surface hover:text-ink border border-transparent"
+                )}
+              >
+                <Icon className={cn("w-5 h-5", isActive ? "text-accent" : "text-ink-faint")} />
+                <span className="uppercase tracking-tight text-sm">{nav[id as keyof typeof nav]}</span>
+              </a>
+            );
+          })}
+        </div>
+
+        <div className="px-4">
+          <div className="h-px bg-line w-full" />
+        </div>
+
+        <div className="space-y-2">
+          {['models', 'glossary', 'help'].map((id) => {
+            const Icon = ICONS[id as keyof typeof ICONS];
+            const isActive = currentPage === id;
+            return (
+              <a
+                key={id}
+                href={`#${id}`}
+                onClick={(e) => { e.preventDefault(); navigationViewModel.navigateToAnchor(id); }}
+                className={cn(
+                  "w-full flex items-center gap-3 px-4 py-3 rounded-xl text-start font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+                  isActive 
+                    ? "bg-surface-raised text-accent shadow-sm border border-line" 
+                    : "text-ink-soft hover:bg-surface hover:text-ink border border-transparent"
+                )}
+              >
+                <Icon className={cn("w-5 h-5", isActive ? "text-accent" : "text-ink-faint")} />
+                <span className="uppercase tracking-tight text-sm">{nav[id as keyof typeof nav]}</span>
+              </a>
+            );
+          })}
+        </div>
       </nav>
 
-      <div className="pt-6 border-t border-line flex items-center justify-between mt-auto">
+      <div className="px-6 pt-8 mt-auto flex items-center justify-between border-t border-line mx-4">
         <LangToggle />
         <ThemeToggle />
       </div>
@@ -56,53 +103,67 @@ export function Sidebar() {
 export function MobileHeader() {
   const { lang } = useViewModel(languageViewModel);
   const nav = getLocalizedNav(lang);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="lg:hidden sticky top-0 z-40 glass border-b border-line px-4 py-3 flex items-center justify-between">
-      <div className="flex items-center gap-2 text-accent">
-        <div className="p-1.5 bg-accent/10 rounded-lg">
-          <Wifi className="w-5 h-5" />
+    <div className="lg:hidden sticky top-0 z-50 w-full bg-bg/80 backdrop-blur-xl border-b border-line">
+      <div className="flex items-center justify-between p-4">
+        <div className="flex items-center gap-3">
+          <div className="p-1.5 bg-accent/10 rounded-lg">
+            <Server className="w-5 h-5 text-accent" />
+          </div>
+          <span className="font-display font-bold tracking-tight text-ink uppercase text-sm">{nav.topbarTitle}</span>
         </div>
-        <span className="font-bold text-base text-ink tracking-tight">{nav.brand}</span>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <LangToggle />
+        </div>
       </div>
-      <div className="flex items-center gap-1">
-        <LangToggle />
-        <ThemeToggle />
-      </div>
-    </header>
+    </div>
   );
 }
 
 export function MobileBottomNav() {
+  const { page, scrollTargetId } = useViewModel(navigationViewModel);
+  const currentPage = scrollTargetId || page;
   const { lang } = useViewModel(languageViewModel);
-  const { page } = useViewModel(navigationViewModel);
   const nav = getLocalizedNav(lang);
 
-  const links = [
-    { id: 'overview', label: nav.overview, icon: BookOpen },
-    { id: 'guide', label: nav.setup, icon: ListChecks },
-    { id: 'reference', label: nav.models, icon: Server },
-  ] as const;
+  const primaryItems = ['overview', 'setup', 'models'] as const;
 
   return (
-    <nav className="lg:hidden fixed bottom-0 start-0 w-full glass border-t border-line pb-[env(safe-area-inset-bottom)] pt-1 px-2 flex items-center justify-around z-40 shadow-[0_-4px_24px_rgba(0,0,0,0.02)]">
-      {links.map(({ id, label, icon: Icon }) => {
-        const isActive = page === id;
-        return (
-          <button
-            key={id}
-            onClick={() => navigationViewModel.showPage(id)}
-            className={cn(
-              "flex flex-col items-center gap-1 p-2 min-w-[64px] rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
-              isActive ? "text-accent" : "text-ink-soft hover:text-ink hover:bg-surface-raised"
-            )}
-            aria-current={isActive ? 'page' : undefined}
-          >
-            <Icon className={cn("w-6 h-6", isActive ? "stroke-[2.5px]" : "stroke-2")} />
-            <span className="text-[10px] font-medium leading-none">{label}</span>
-          </button>
-        );
-      })}
-    </nav>
+    <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-surface/90 backdrop-blur-xl border-t border-line z-50 pb-safe">
+      <div className="flex items-center justify-around p-2">
+        {primaryItems.map((id) => {
+          const Icon = ICONS[id];
+          const isActive = currentPage === id;
+          return (
+            <a
+              key={id}
+              href={`#${id}`}
+              onClick={(e) => { e.preventDefault(); navigationViewModel.navigateToAnchor(id); }}
+              className={cn(
+                "flex flex-col items-center gap-1 p-2 min-w-[64px] rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+                isActive ? "text-accent" : "text-ink-soft hover:text-ink"
+              )}
+            >
+              <Icon className={cn("w-5 h-5", isActive ? "text-accent" : "text-ink-faint")} />
+              <span className="text-[10px] font-medium uppercase tracking-tight">{nav[id]}</span>
+            </a>
+          );
+        })}
+        <a
+          href="#help"
+          onClick={(e) => { e.preventDefault(); navigationViewModel.navigateToAnchor('help'); }}
+          className={cn(
+            "flex flex-col items-center gap-1 p-2 min-w-[64px] rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+            currentPage === 'help' || currentPage === 'glossary' || currentPage === 'power' ? "text-accent" : "text-ink-soft hover:text-ink"
+          )}
+        >
+          <Menu className={cn("w-5 h-5", currentPage === 'help' || currentPage === 'glossary' || currentPage === 'power' ? "text-accent" : "text-ink-faint")} />
+          <span className="text-[10px] font-medium uppercase tracking-tight">{nav.menuBtn}</span>
+        </a>
+      </div>
+    </div>
   );
 }

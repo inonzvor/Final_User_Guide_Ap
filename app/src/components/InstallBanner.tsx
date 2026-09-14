@@ -2,7 +2,6 @@ import { useViewModel } from '../useViewModel';
 import { installPromptViewModel, languageViewModel } from '../viewmodels';
 import { getLocalizedInstallCopy } from '../../../src';
 import { Download, X } from 'lucide-react';
-import { cn } from '../lib/utils';
 
 export function InstallBanner() {
   const { lang } = useViewModel(languageViewModel);
@@ -38,7 +37,7 @@ export function InstallBanner() {
           {state.buttonVisible && (
             <button
               onClick={() => installPromptViewModel.promptInstall()}
-              className="bg-accent hover:bg-accent-strong text-on-accent px-4 py-2 rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+              className="bg-accent hover:bg-accent-strong text-on-accent px-4 py-2 rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
             >
               {copy.button}
             </button>
@@ -46,7 +45,7 @@ export function InstallBanner() {
           <button
             onClick={() => installPromptViewModel.dismiss()}
             aria-label={copy.dismissLabel}
-            className="p-2 text-ink-soft hover:text-ink hover:bg-surface-raised rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            className="p-2 text-ink-soft hover:text-ink hover:bg-surface-raised rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
             <X className="w-5 h-5" />
           </button>

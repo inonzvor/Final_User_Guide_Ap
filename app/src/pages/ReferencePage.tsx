@@ -1,7 +1,7 @@
 import { useViewModel } from '../useViewModel';
 import { languageViewModel } from '../viewmodels';
 import { getLocalizedModels, getLocalizedGlossary, getLocalizedFaq } from '../../../src';
-import { Server, HelpCircle, Book, Plus, Minus, Cpu } from 'lucide-react';
+import { Book, HelpCircle, Server, Plus, Minus } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '../lib/utils';
 
@@ -25,38 +25,42 @@ export function ReferencePage() {
   };
 
   return (
-    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-20">
+    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
       
-      {/* Models Section */}
-      <section className="space-y-8 max-w-5xl mx-auto" id="models">
-        <div className="space-y-2 text-center">
-          <p className="text-sm font-semibold tracking-widest uppercase text-accent">
-            <Html value={models.eyebrow} />
+      {/* Models Compare Section */}
+      <section className="border-b border-line py-12 md:py-20" id="models">
+        <div className="grid gap-8 border-b border-line pb-7 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-8">
+            <span className="font-mono text-[10px] font-bold text-accent uppercase tracking-widest">{models.eyebrow}</span>
+            <h2 className="font-display mt-4 max-w-[16ch] text-4xl font-semibold leading-none sm:text-5xl md:text-6xl text-ink uppercase">
+              <Html value={models.h2} />
+            </h2>
+          </div>
+          <p className="max-w-[34ch] text-sm leading-6 text-ink-soft lg:col-span-4">
+            <Html value={models.intro} />
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-ink"><Html value={models.h2} /></h2>
-          <p className="text-lg text-ink-soft max-w-2xl mx-auto"><Html value={models.intro} /></p>
         </div>
 
-        <div className="flex flex-col gap-6">
+        <div className="mt-14 grid gap-6 sm:grid-cols-2">
           {models.models.map((m, i) => (
-            <div key={i} className="glass border border-line rounded-3xl p-6 hover:border-accent/40 hover:-translate-y-1 transition-all duration-300 flex flex-col md:flex-row gap-6 md:gap-8 group relative overflow-hidden">
-              {m.unverified && (
-                <span className="absolute top-4 end-4 bg-warn/10 text-warn-dark text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider z-10">
-                  Unverified
-                </span>
-              )}
-              {m.outdoor && (
-                <span className="absolute top-4 end-4 bg-info/10 text-info text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider z-10">
-                  Outdoor
-                </span>
-              )}
-
-              {/* Product Image */}
-              <div className="w-full md:w-64 h-48 md:h-auto shrink-0 bg-ink/5 rounded-2xl border border-line/50 flex items-center justify-center p-6 relative overflow-hidden group-hover:bg-ink/10 transition-colors">
+            <div key={i} className="flex flex-col border border-line bg-surface/30 hover:bg-surface/50 transition-colors">
+              {/* Top Image Section */}
+              <div className="w-full h-56 bg-ink/5 border-b border-line/50 p-6 relative flex items-center justify-center overflow-hidden">
+                {m.unverified && (
+                  <span className="absolute top-4 right-4 bg-warn/10 text-warn-dark text-[10px] font-bold px-2 py-1 uppercase tracking-wider z-10 border border-warn/20 rounded-md">
+                    Unverified
+                  </span>
+                )}
+                {m.outdoor && (
+                  <span className="absolute top-4 right-4 bg-info/10 text-info text-[10px] font-bold px-2 py-1 uppercase tracking-wider z-10 border border-info/20 rounded-md">
+                    Outdoor
+                  </span>
+                )}
+                
                 <img 
                   src={getImageForModel(m.modelNumber)} 
                   alt={m.modelNumber} 
-                  className="w-full h-full object-contain drop-shadow-2xl filter group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-contain drop-shadow-xl"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.style.display = 'none';
@@ -68,45 +72,45 @@ export function ReferencePage() {
                 </div>
               </div>
 
-              {/* Product Details */}
-              <div className="flex-1 flex flex-col py-2">
-                <h3 className="text-2xl font-bold text-ink font-mono tracking-tight break-words mb-3">{m.modelNumber}</h3>
-                
+              {/* Details Section */}
+              <div className="p-6 flex flex-col flex-1">
                 <div className="flex flex-wrap gap-2 mb-4">
                   {m.tags.map((t, idx) => (
-                    <span key={idx} className="bg-surface-raised border border-line text-ink-soft px-2.5 py-1 rounded-md text-xs uppercase font-semibold tracking-wide">
+                    <span key={idx} className="bg-surface border border-line text-ink-soft px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md">
                       {t}
                     </span>
                   ))}
                 </div>
+                
+                <h3 className="text-2xl font-display font-semibold text-ink tracking-tight break-words mb-6 uppercase">{m.modelNumber}</h3>
 
                 {m.specs && (
-                  <ul className="grid sm:grid-cols-2 gap-y-2 gap-x-6 mb-6 text-sm text-ink-soft">
-                    <li className="flex items-start gap-2">
-                      <span className="opacity-50 mt-0.5 w-4 shrink-0">•</span>
+                  <ul className="space-y-3 text-sm text-ink-soft mb-8 flex-1">
+                    <li className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 bg-accent mt-1.5 shrink-0 rounded-sm" />
                       <span className="leading-tight"><Html value={m.specs.wifi} /></span>
                     </li>
-                    <li className="flex items-start gap-2">
-                      <span className="opacity-50 mt-0.5 w-4 shrink-0">•</span>
+                    <li className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 bg-accent mt-1.5 shrink-0 rounded-sm" />
                       <span className="leading-tight"><Html value={m.specs.speed} /></span>
                     </li>
-                    <li className="flex items-start gap-2">
-                      <span className="opacity-50 mt-0.5 w-4 shrink-0">•</span>
+                    <li className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 bg-accent mt-1.5 shrink-0 rounded-sm" />
                       <span className="leading-tight"><Html value={m.specs.ports} /></span>
                     </li>
-                    <li className="flex items-start gap-2">
-                      <span className="opacity-50 mt-0.5 w-4 shrink-0">•</span>
+                    <li className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 bg-accent mt-1.5 shrink-0 rounded-sm" />
                       <span className="leading-tight"><Html value={m.specs.power} /></span>
                     </li>
                   </ul>
                 )}
                 
-                <div className="bg-surface-raised/50 px-4 py-3 rounded-xl text-sm font-medium text-ink-soft border border-line mt-auto">
+                <div className="bg-surface/50 px-4 py-3 text-sm font-medium text-ink-soft border border-line mt-auto rounded-lg">
                   <Html value={m.bestFor} />
                 </div>
 
                 {m.note && (
-                  <div className="text-sm text-warn-dark mt-4 italic flex gap-2 items-start bg-warn/5 p-3 rounded-lg border border-warn/10">
+                  <div className="text-sm text-warn-dark mt-4 italic flex gap-2 items-start bg-warn/5 p-3 border-l-2 border-warn rounded-r-lg">
                     <Html value={m.note} />
                   </div>
                 )}
@@ -116,30 +120,30 @@ export function ReferencePage() {
         </div>
       </section>
 
-      <hr className="border-line max-w-4xl mx-auto" />
-
       {/* Glossary Section */}
-      <section className="space-y-8 max-w-3xl mx-auto" id="glossary">
-        <div className="space-y-2 text-center">
-          <p className="text-sm font-semibold tracking-widest uppercase text-secondary">
-            <Html value={glossary.eyebrow} />
+      <section className="border-b border-line py-12 md:py-20" id="glossary">
+        <div className="grid gap-8 border-b border-line pb-7 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-8">
+            <span className="font-mono text-[10px] font-bold text-secondary uppercase tracking-widest">{glossary.eyebrow}</span>
+            <h2 className="font-display mt-4 max-w-[16ch] text-4xl font-semibold leading-none sm:text-5xl md:text-6xl text-ink uppercase flex items-center gap-4">
+              <Book className="w-8 h-8 sm:w-12 sm:h-12 text-secondary" />
+              <Html value={glossary.h2} />
+            </h2>
+          </div>
+          <p className="max-w-[34ch] text-sm leading-6 text-ink-soft lg:col-span-4">
+            <Html value={glossary.intro} />
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-ink flex items-center justify-center gap-3">
-            <Book className="w-8 h-8 text-secondary" />
-            <Html value={glossary.h2} />
-          </h2>
-          <p className="text-lg text-ink-soft"><Html value={glossary.intro} /></p>
         </div>
 
-        <div className="glass border border-line rounded-3xl p-6 md:p-10 transition-shadow">
-          <dl className="grid sm:grid-cols-2 gap-x-12 gap-y-8">
+        <div className="mt-14 border border-line bg-surface/30 p-6 md:p-10 rounded-2xl">
+          <dl className="grid sm:grid-cols-2 gap-x-12 gap-y-12">
             {glossary.terms.map((t, i) => (
-              <div key={i} className="space-y-2">
-                <dt className="text-lg font-bold text-ink flex items-center gap-2">
-                  <div className="w-1.5 h-4 bg-secondary rounded-full shrink-0" />
+              <div key={i} className="space-y-4">
+                <dt className="text-xl font-display font-semibold text-ink flex items-center gap-3 uppercase tracking-tight">
+                  <div className="w-2 h-2 bg-secondary rounded-sm" />
                   <Html value={t.term} />
                 </dt>
-                <dd className="text-ink-soft text-sm leading-relaxed ps-3.5">
+                <dd className="text-ink-soft text-sm leading-relaxed border-l-2 border-line pl-4">
                   <Html value={t.def} />
                 </dd>
               </div>
@@ -148,49 +152,49 @@ export function ReferencePage() {
         </div>
       </section>
 
-      <hr className="border-line max-w-4xl mx-auto" />
-
       {/* FAQ Section */}
-      <section className="space-y-8 max-w-3xl mx-auto" id="help">
-        <div className="space-y-2 text-center">
-          <p className="text-sm font-semibold tracking-widest uppercase text-accent">
-            <Html value={faq.eyebrow} />
+      <section className="py-12 md:py-20 mb-16" id="help">
+        <div className="grid gap-8 border-b border-line pb-7 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-8">
+            <span className="font-mono text-[10px] font-bold text-accent uppercase tracking-widest">{faq.eyebrow}</span>
+            <h2 className="font-display mt-4 max-w-[16ch] text-4xl font-semibold leading-none sm:text-5xl md:text-6xl text-ink uppercase flex items-center gap-4">
+              <HelpCircle className="w-8 h-8 sm:w-12 sm:h-12 text-accent" />
+              <Html value={faq.h2} />
+            </h2>
+          </div>
+          <p className="max-w-[34ch] text-sm leading-6 text-ink-soft lg:col-span-4">
+            <Html value={faq.intro} />
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-ink flex items-center justify-center gap-3">
-            <HelpCircle className="w-8 h-8 text-accent" />
-            <Html value={faq.h2} />
-          </h2>
-          <p className="text-lg text-ink-soft"><Html value={faq.intro} /></p>
         </div>
 
-        <div className="space-y-4">
+        <div className="mt-14 space-y-0 border-y border-line">
           {faq.items.map((q, i) => {
             const isOpen = openFaq === i;
             return (
               <div 
                 key={i} 
                 className={cn(
-                  "glass border rounded-2xl overflow-hidden transition-all duration-300",
-                  isOpen ? "border-accent scale-[1.01]" : "border-line hover:border-accent/50"
+                  "border-b border-line last:border-b-0 transition-all duration-300",
+                  isOpen ? "bg-surface/30" : "hover:bg-surface/10"
                 )}
               >
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : i)}
-                  className="w-full text-start px-6 py-5 flex items-center justify-between gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent"
+                  className="w-full text-start px-6 py-6 flex items-center justify-between gap-4 focus-visible:outline-none"
                 >
-                  <strong className="text-lg text-ink font-medium">{q.title}</strong>
+                  <strong className="text-xl font-display font-semibold text-ink uppercase tracking-tight">{q.title}</strong>
                   <div className={cn(
-                    "w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors",
-                    isOpen ? "bg-accent text-on-accent" : "bg-surface-raised text-ink-soft"
+                    "w-8 h-8 flex items-center justify-center shrink-0 transition-colors border rounded-lg",
+                    isOpen ? "border-accent text-accent bg-accent/10" : "border-line text-ink-soft bg-surface/50"
                   )}>
                     {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                   </div>
                 </button>
                 <div className={cn(
                   "px-6 text-ink-soft leading-relaxed transition-all duration-300 ease-in-out origin-top",
-                  isOpen ? "pb-6 opacity-100 h-auto" : "h-0 opacity-0 py-0 overflow-hidden"
+                  isOpen ? "pb-8 opacity-100 h-auto" : "h-0 opacity-0 py-0 overflow-hidden"
                 )}>
-                  <div className="prose prose-sm dark:prose-invert max-w-none prose-a:text-accent prose-a:no-underline hover:prose-a:underline space-y-4">
+                  <div className="prose prose-sm dark:prose-invert max-w-2xl prose-a:text-accent prose-a:no-underline hover:prose-a:underline space-y-4 border-l-2 border-accent pl-4 ml-2">
                     {q.body.map((p, k) => (
                       <p key={k}><Html value={p} /></p>
                     ))}

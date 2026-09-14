@@ -14,144 +14,166 @@ export function OverviewPage() {
   const ov = getLocalizedOverview(lang);
 
   return (
-    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-16">
+    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+      
       {/* Hero Section */}
-      <section className="text-center space-y-6 py-8 md:py-12">
-        <p className="text-sm font-semibold tracking-widest uppercase text-accent">
-          {hero.eyebrow}
-        </p>
-        <h1 className="display text-5xl sm:text-7xl font-semibold leading-[.95] tracking-tighter text-ink mt-8 max-w-[15ch] mx-auto uppercase">
-          {hero.h1}
-        </h1>
-        <p className="text-lg md:text-xl text-ink-soft max-w-2xl mx-auto">
-          {hero.sub}
-        </p>
-        
-        <div className="flex flex-wrap justify-center gap-3 pt-4">
-          {hero.badges.map((badge, i) => (
-            <span key={i} className="inline-flex items-center rounded-full bg-accent/10 px-3 py-1 text-sm font-medium text-accent">
-              {badge}
-            </span>
-          ))}
-        </div>
-        
-        <div className="flex flex-wrap justify-center gap-6 pt-6 text-sm text-ink-soft">
-          {hero.meta.map((item, i) => (
-            <div key={i} className="flex items-center gap-2">
-              {i === 0 && <ShieldCheck className="w-4 h-4" />}
-              {i === 1 && <Wifi className="w-4 h-4" />}
-              <Html value={item} />
+      <section className="py-12 md:py-24 border-b border-line">
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-8">
+            <p className="font-mono text-[10px] font-bold text-accent uppercase tracking-widest mb-4">
+              {hero.eyebrow}
+            </p>
+            <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl font-semibold leading-[.85] tracking-tight text-ink max-w-[15ch] uppercase">
+              <Html value={hero.h1} />
+            </h1>
+          </div>
+          <div className="lg:col-span-4">
+            <p className="text-lg md:text-xl text-ink-soft mb-6 leading-relaxed">
+              <Html value={hero.sub} />
+            </p>
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-wrap gap-3">
+                {hero.badges.map((badge, i) => (
+                  <span key={i} className="inline-flex items-center bg-accent text-on-accent px-4 py-1.5 text-xs font-bold uppercase tracking-wider">
+                    {badge}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-6 pt-4 text-xs font-mono uppercase text-ink-soft border-t border-line">
+                {hero.meta.map((item, i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    {i === 0 && <ShieldCheck className="w-4 h-4 text-accent" />}
+                    {i === 1 && <Wifi className="w-4 h-4 text-accent" />}
+                    <Html value={item} />
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
       {/* Network Diagram Illustration */}
-      <section className="w-full glass border border-line rounded-3xl p-6 md:p-12 transition-all duration-500 overflow-hidden relative group">
-        <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent pointer-events-none group-hover:from-accent/10 transition-colors duration-500" />
-        <div className="relative max-w-4xl mx-auto flex flex-col items-center">
-          
-          <div className="flex flex-col md:flex-row items-center justify-between w-full gap-6 md:gap-2 relative py-6">
-            
-            {/* Desktop Connection Line Background */}
-            <div className="hidden md:block absolute top-1/2 left-12 right-12 h-[2px] bg-line -z-0 -translate-y-1/2">
-               {/* Active portion from Router to AP */}
-               <div className="absolute top-0 left-1/3 right-1/3 h-full bg-accent" />
-            </div>
-
-            {/* Internet */}
-            <div className="flex flex-col items-center gap-3 glass p-2 z-10">
-              <div className="w-20 h-20 rounded-full bg-secondary/10 text-secondary flex items-center justify-center shadow-inner relative">
-                <Globe className="w-10 h-10" strokeWidth={1.5} />
-              </div>
-              <span className="text-xs font-bold text-ink tracking-wide uppercase">Internet</span>
-            </div>
-
-            {/* Arrow 1: Internet -> Router */}
-            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-surface-raised border border-line text-ink-soft shadow-xs z-10 shrink-0">
-              <ArrowRight className="w-4 h-4 hidden md:block text-ink-soft" strokeWidth={2.5} />
-              <ArrowDown className="w-4 h-4 md:hidden text-ink-soft" strokeWidth={2.5} />
-            </div>
-
-            {/* Modem/Router */}
-            <div className="flex flex-col items-center gap-3 glass p-2 z-10">
-              <div className="w-20 h-20 rounded-2xl bg-surface-raised border-2 border-line text-ink flex items-center justify-center relative">
-                <RouterIcon className="w-10 h-10" strokeWidth={1.5} />
-                <div className="absolute top-2 right-2 flex gap-1">
-                  <div className="w-1.5 h-1.5 rounded-full bg-success" />
-                  <div className="w-1.5 h-1.5 rounded-full bg-success" />
-                </div>
-              </div>
-              <span className="text-xs font-bold text-ink tracking-wide uppercase">Router</span>
-            </div>
-
-            {/* Arrow 2: Router -> Access Point (Ethernet) */}
-            <div className="flex items-center justify-center w-9 h-9 rounded-full bg-accent/10 border-2 border-accent text-accent shadow-sm z-10 shrink-0">
-              <ArrowRight className="w-5 h-5 hidden md:block" strokeWidth={2.5} />
-              <ArrowDown className="w-5 h-5 md:hidden" strokeWidth={2.5} />
-            </div>
-
-            {/* Access Point */}
-            <div className="flex flex-col items-center gap-3 glass p-2 z-10">
-              <div className="relative w-24 h-24 rounded-full bg-accent text-on-accent flex items-center justify-center shadow-lg shadow-accent/20">
-                <Wifi className="w-12 h-12" strokeWidth={1.5} />
-                {/* Ping animation rings */}
-                <div className="absolute inset-0 rounded-full border-2 border-accent animate-ping opacity-20 duration-[3000ms]" />
-              </div>
-              <span className="text-xs font-bold text-accent tracking-wide uppercase">Access Point</span>
-            </div>
-
-            {/* Arrow 3: Access Point -> Devices (Wi-Fi) */}
-            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-secondary/10 border border-secondary/30 text-secondary shadow-xs z-10 shrink-0">
-              <ArrowRight className="w-4 h-4 hidden md:block" strokeWidth={2.5} />
-              <ArrowDown className="w-4 h-4 md:hidden" strokeWidth={2.5} />
-            </div>
-
-            {/* Devices */}
-            <div className="flex flex-col items-center gap-3 glass p-2 z-10">
-              <div className="flex items-center gap-3">
-                <div className="w-16 h-16 rounded-xl bg-surface-raised border-2 border-line text-ink flex items-center justify-center relative shadow-sm">
-                  <Laptop className="w-7 h-7" strokeWidth={1.5} />
-                  {/* Wireless wave indicator */}
-                  <Wifi className="w-4 h-4 text-accent absolute -top-2 -left-2 glass rounded-full" strokeWidth={3} />
-                </div>
-                <div className="w-16 h-16 rounded-xl bg-surface-raised border-2 border-line text-ink flex items-center justify-center relative shadow-sm">
-                  <Smartphone className="w-7 h-7" strokeWidth={1.5} />
-                  <Wifi className="w-4 h-4 text-accent absolute -top-2 -right-2 glass rounded-full" strokeWidth={3} />
-                </div>
-              </div>
-              <span className="text-xs font-bold text-ink tracking-wide uppercase">Devices</span>
-            </div>
-
+      <section className="py-12 md:py-24 border-b border-line group">
+        <div className="grid gap-8 border-b border-line pb-7 lg:grid-cols-12 lg:items-end mb-14">
+          <div className="lg:col-span-8">
+            <span className="font-mono text-[10px] font-bold text-accent uppercase tracking-widest">
+              {ov.diagram.ariaLabel}
+            </span>
+            <h2 className="font-display mt-4 max-w-[16ch] text-4xl font-semibold leading-none sm:text-5xl md:text-6xl text-ink uppercase">
+              <Html value={ov.h2} />
+            </h2>
           </div>
-
-          <p className="text-center text-sm text-ink-soft mt-8 md:mt-12">
-            <em><Html value={ov.diagram.caption} /></em>
+          <p className="max-w-[34ch] text-sm leading-6 text-ink-soft lg:col-span-4">
+            <Html value={ov.intro} />
           </p>
+        </div>
+
+        <div className="w-full bg-surface/40 border border-line p-6 md:p-12 transition-all duration-500 overflow-hidden relative">
+          <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent pointer-events-none group-hover:from-accent/10 transition-colors duration-500" />
+          <div className="absolute left-0 top-0 border-b border-r border-line px-4 py-3 font-mono text-[9px] text-ink-soft">SHEET 01 / DIAGRAM</div>
+          
+          <div className="relative max-w-4xl mx-auto flex flex-col items-center mt-8">
+            <div className="flex flex-col md:flex-row items-center md:items-start justify-between w-full gap-6 md:gap-2 relative py-6">
+              
+              {/* Desktop Connection Line Background */}
+              <div className="hidden md:block absolute top-[72px] left-20 right-20 h-[1px] bg-line -z-0">
+                 <div className="absolute top-0 left-1/3 right-1/3 h-full bg-accent" />
+              </div>
+
+              {/* Internet */}
+              <div className="flex flex-col items-center text-center z-10 w-32">
+                <div className="grid size-24 place-items-center border border-accent/40 bg-accent/5 mb-5 rounded-xl">
+                  <Globe className="w-8 h-8 text-ink" strokeWidth={1.5} />
+                </div>
+                <span className="font-mono text-[9px] text-accent">NODE / 01</span>
+                <b className="font-display mt-2 text-lg text-ink uppercase tracking-tight"><Html value={ov.diagram.internet} /></b>
+              </div>
+
+              {/* Arrow 1 */}
+              <div className="flex items-center justify-center w-8 h-8 md:h-24 text-ink-soft z-10 shrink-0">
+                <ArrowRight className="w-4 h-4 hidden md:block" strokeWidth={2} />
+                <ArrowDown className="w-4 h-4 md:hidden" strokeWidth={2} />
+              </div>
+
+              {/* Modem/Router */}
+              <div className="flex flex-col items-center text-center z-10 w-32">
+                <div className="grid size-24 place-items-center border border-accent/40 bg-accent/5 mb-5 rounded-xl">
+                  <RouterIcon className="w-8 h-8 text-ink" strokeWidth={1.5} />
+                </div>
+                <span className="font-mono text-[9px] text-accent">NODE / 02</span>
+                <b className="font-display mt-2 text-lg text-ink uppercase tracking-tight"><Html value={ov.diagram.router} /></b>
+              </div>
+
+              {/* Arrow 2 */}
+              <div className="flex items-center justify-center w-8 h-8 md:h-24 text-accent z-10 shrink-0">
+                <ArrowRight className="w-4 h-4 hidden md:block" strokeWidth={2} />
+                <ArrowDown className="w-4 h-4 md:hidden" strokeWidth={2} />
+              </div>
+
+              {/* Access Point */}
+              <div className="flex flex-col items-center text-center z-10 w-32">
+                <div className="grid size-24 place-items-center border border-accent bg-accent mb-5 relative rounded-xl">
+                  <Wifi className="w-8 h-8 text-on-accent" strokeWidth={1.5} />
+                  <div className="absolute inset-0 border border-accent animate-ping opacity-20 duration-[3000ms] rounded-xl" />
+                </div>
+                <span className="font-mono text-[9px] text-accent">NODE / 03</span>
+                <b className="font-display mt-2 text-lg text-accent uppercase tracking-tight"><Html value={ov.diagram.ap} /></b>
+              </div>
+
+              {/* Arrow 3 */}
+              <div className="flex items-center justify-center w-8 h-8 md:h-24 text-ink-soft z-10 shrink-0">
+                <ArrowRight className="w-4 h-4 hidden md:block" strokeWidth={2} />
+                <ArrowDown className="w-4 h-4 md:hidden" strokeWidth={2} />
+              </div>
+
+              {/* Devices */}
+              <div className="flex flex-col items-center text-center z-10 w-32">
+                <div className="grid size-24 place-items-center border border-accent/40 bg-accent/5 mb-5 relative rounded-xl">
+                  <div className="flex items-center gap-2">
+                    <Laptop className="w-5 h-5 text-ink" strokeWidth={1.5} />
+                    <Smartphone className="w-4 h-4 text-ink" strokeWidth={1.5} />
+                  </div>
+                </div>
+                <span className="font-mono text-[9px] text-accent">NODE / 04</span>
+                <b className="font-display mt-2 text-lg text-ink uppercase tracking-tight">Devices</b>
+              </div>
+
+            </div>
+            
+            <p className="text-center text-sm font-mono text-ink-soft mt-8 border-t border-line pt-4 w-full">
+              <Html value={ov.diagram.caption} />
+            </p>
+          </div>
         </div>
       </section>
 
       {/* Overview Content */}
-      <section className="space-y-6 max-w-3xl mx-auto">
-        <div className="space-y-2">
-          <p className="text-sm font-semibold tracking-widest uppercase text-secondary">
-            {ov.eyebrow}
-          </p>
-          <h2 className="text-3xl font-bold text-ink">{ov.h2}</h2>
+      <section className="py-12 md:py-24">
+        <div className="grid gap-8 border-b border-line pb-7 lg:grid-cols-12 lg:items-end mb-14">
+          <div className="lg:col-span-8">
+            <span className="font-mono text-[10px] font-bold text-secondary uppercase tracking-widest">{ov.eyebrow}</span>
+            <h2 className="font-display mt-4 max-w-[16ch] text-4xl font-semibold leading-none sm:text-5xl md:text-6xl text-ink uppercase">
+              <Html value={ov.h2} />
+            </h2>
+          </div>
         </div>
         
-        <p className="text-lg text-ink-soft leading-relaxed"><Html value={ov.intro} /></p>
-        
-        <div className="bg-surface-raised p-6 rounded-2xl text-ink leading-relaxed shadow-sm">
-          <Html value={ov.p1} />
+        <div className="grid md:grid-cols-2 gap-12">
+          <div className="space-y-8">
+            <div className="bg-surface/50 p-8 border border-line text-ink leading-relaxed rounded-2xl">
+              <Html value={ov.p1} />
+            </div>
+          </div>
+          <div className="space-y-8">
+            <blockquote className="border-l-4 border-accent pl-6 py-2 text-2xl font-display font-medium text-ink bg-surface/30 pr-6 rounded-r-2xl">
+              <Html value={ov.calloutP} />
+            </blockquote>
+            <p className="text-lg text-ink-soft leading-relaxed"><Html value={ov.p2} /></p>
+          </div>
         </div>
-        
-        <blockquote className="border-s-4 border-accent ps-6 py-2 my-8 text-xl font-medium italic text-ink-soft bg-surface-raised/50 rounded-e-2xl">
-          <Html value={ov.calloutP} />
-        </blockquote>
-        
-        <p className="text-lg text-ink-soft leading-relaxed"><Html value={ov.p2} /></p>
       </section>
+      
     </div>
   );
 }

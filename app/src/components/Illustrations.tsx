@@ -12,10 +12,10 @@ export function StepIllustration({ stepId, className }: { stepId: string, classN
     case 'step2': // Ports
       return (
         <IllustrationWrapper>
-          <div className="flex gap-8 items-center bg-surface px-6 py-4 rounded-xl border border-line shadow-sm">
+          <div className="flex gap-8 items-center bg-surface px-6 py-4 rounded-2xl border border-line shadow-sm">
             {/* LAN/PoE Port */}
             <div className="flex flex-col items-center gap-3">
-              <div className="w-14 h-12 glass border-2 border-line rounded-md flex flex-col justify-end p-1 relative shadow-inner">
+              <div className="w-14 h-12 glass border-2 border-line rounded-2xl flex flex-col justify-end p-1 relative shadow-inner">
                 {/* 8 pins */}
                 <div className="flex justify-between w-full px-1.5">
                   {[...Array(8)].map((_, i) => (
@@ -32,8 +32,8 @@ export function StepIllustration({ stepId, className }: { stepId: string, classN
             
             {/* DC Power */}
             <div className="flex flex-col items-center gap-3">
-              <div className="w-12 h-12 rounded-full border-[3px] border-line flex items-center justify-center glass relative shadow-inner">
-                 <div className="w-3.5 h-3.5 rounded-full bg-ink" />
+              <div className="w-12 h-12 rounded-2xl border-[3px] border-line flex items-center justify-center glass relative shadow-inner">
+                 <div className="w-3.5 h-3.5 rounded-2xl bg-ink" />
               </div>
               <span className="text-[10px] font-bold text-ink-soft uppercase tracking-wider">12V DC</span>
             </div>
@@ -45,9 +45,9 @@ export function StepIllustration({ stepId, className }: { stepId: string, classN
       return (
         <IllustrationWrapper>
           <div className="relative mt-8">
-             <div className="w-32 h-16 bg-surface rounded-xl border border-line flex items-center justify-center relative shadow-sm">
-               <div className="w-5 h-5 rounded-full glass border-2 border-line shadow-inner flex items-center justify-center">
-                 <div className="w-1 h-1 rounded-full bg-warn opacity-50" />
+             <div className="w-32 h-16 bg-surface rounded-2xl border border-line flex items-center justify-center relative shadow-sm">
+               <div className="w-5 h-5 rounded-2xl glass border-2 border-line shadow-inner flex items-center justify-center">
+                 <div className="w-1 h-1 rounded-2xl bg-warn opacity-50" />
                </div>
                <span className="absolute -bottom-7 text-[10px] font-bold text-ink-soft tracking-wider">RESET</span>
              </div>
@@ -93,7 +93,7 @@ export function StepIllustration({ stepId, className }: { stepId: string, classN
         <IllustrationWrapper bg="bg-secondary/5">
           <div className="flex items-center gap-1">
              {/* Wall Plug */}
-             <div className="w-16 h-20 bg-surface border-[3px] border-secondary rounded-xl relative flex flex-col items-center justify-center shadow-md">
+             <div className="w-16 h-20 bg-surface border-[3px] border-secondary rounded-2xl relative flex flex-col items-center justify-center shadow-md">
                 <div className="absolute -left-3 top-4 w-3 h-2.5 bg-secondary rounded-l-sm" />
                 <div className="absolute -left-3 bottom-4 w-3 h-2.5 bg-secondary rounded-l-sm" />
                 <Power className="w-6 h-6 text-secondary opacity-60" strokeWidth={2.5} />
@@ -101,7 +101,7 @@ export function StepIllustration({ stepId, className }: { stepId: string, classN
              {/* Cable */}
              <div className="w-20 h-2 bg-line shadow-inner" />
              {/* Barrel Jack */}
-             <div className="w-6 h-5 bg-line rounded-sm" />
+             <div className="w-6 h-5 bg-line rounded-2xl" />
              <div className="w-8 h-3.5 bg-surface border-[2px] border-line rounded-r-sm shadow-sm" />
           </div>
         </IllustrationWrapper>
@@ -110,15 +110,15 @@ export function StepIllustration({ stepId, className }: { stepId: string, classN
     case 'step8': // Light
       return (
         <IllustrationWrapper>
-          <div className="w-36 h-36 rounded-full bg-surface border border-line flex items-center justify-center relative shadow-sm">
+          <div className="w-36 h-36 rounded-2xl bg-surface border border-line flex items-center justify-center relative shadow-sm">
              {/* The glowing LED */}
-             <div className="w-5 h-5 rounded-full bg-success shadow-[0_0_20px_rgba(13,148,136,1)] relative z-10">
-               <div className="absolute inset-0 bg-white rounded-full opacity-60 blur-[2px]" />
+             <div className="w-5 h-5 rounded-2xl bg-success shadow-[0_0_20px_rgba(13,148,136,1)] relative z-10">
+               <div className="absolute inset-0 bg-white rounded-2xl opacity-60 blur-[2px]" />
              </div>
              
              {/* Expanding rings */}
-             <div className="absolute inset-0 rounded-full border-[3px] border-success opacity-20 animate-ping duration-[3000ms]" />
-             <div className="absolute inset-6 rounded-full border-2 border-success opacity-10 animate-ping duration-[3000ms] delay-700" />
+             <div className="absolute inset-0 rounded-2xl border-[3px] border-success opacity-20 animate-ping duration-[3000ms]" />
+             <div className="absolute inset-6 rounded-2xl border-2 border-success opacity-10 animate-ping duration-[3000ms] delay-700" />
           </div>
         </IllustrationWrapper>
       );
@@ -128,14 +128,14 @@ export function StepIllustration({ stepId, className }: { stepId: string, classN
         <IllustrationWrapper>
           <div className="flex flex-col items-center gap-3 relative mt-6">
              {/* Ceiling / Bracket */}
-             <div className="w-48 h-2.5 bg-line rounded-full" />
+             <div className="w-48 h-2.5 bg-line rounded-2xl" />
              <div className="w-28 h-5 bg-surface border-x-2 border-b-2 border-line rounded-b-lg shadow-sm" />
              
              {/* Arrow */}
              <ArrowDown className="w-6 h-6 text-accent animate-bounce my-2" strokeWidth={3} />
              
              {/* Device */}
-             <div className="w-36 h-12 glass border-2 border-accent rounded-full flex items-center justify-center shadow-md">
+             <div className="w-36 h-12 glass border-2 border-accent rounded-2xl flex items-center justify-center shadow-md">
                <Wifi className="w-6 h-6 text-accent opacity-60" />
              </div>
           </div>

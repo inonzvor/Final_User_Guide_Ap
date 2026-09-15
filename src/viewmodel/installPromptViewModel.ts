@@ -49,8 +49,10 @@ export const defaultInstallEnvironment: InstallEnvironment = {
   isStandalone(): boolean {
     if (typeof window === 'undefined') return false;
     const displayModeStandalone = window.matchMedia?.('(display-mode: standalone)').matches ?? false;
-    const iosStandalone = (window.navigator as Navigator & { standalone?: boolean }).standalone === true;
-    return displayModeStandalone || iosStandalone;
+    const minimalUi = window.matchMedia?.('(display-mode: minimal-ui)').matches ?? false;
+    const overlay = window.matchMedia?.('(display-mode: window-controls-overlay)').matches ?? false;
+    const iosStandalone = (window.navigator as unknown as { standalone?: boolean }).standalone === true;
+    return displayModeStandalone || minimalUi || overlay || iosStandalone;
   },
   isIOS(): boolean {
     if (typeof navigator === 'undefined') return false;
@@ -92,7 +94,7 @@ export class InstallPromptViewModel {
   }
 
   private computeInitialState(): InstallPromptState {
-    if (this.env.isStandalone() || this.env.wasDismissed()) {
+    if (this.env.isStandalone()) {
       return {
         cardVisible: false,
         buttonVisible: false,
@@ -104,7 +106,7 @@ export class InstallPromptViewModel {
     if (this.env.isIOS()) {
       return {
         cardVisible: true,
-        buttonVisible: false,
+        buttonVisible: true,
         iosNoteVisible: true,
         fallbackNoteVisible: false,
         fallbackMessageKind: 'default',
@@ -113,7 +115,7 @@ export class InstallPromptViewModel {
     if (this.env.isFileProtocol()) {
       return {
         cardVisible: true,
-        buttonVisible: false,
+        buttonVisible: true,
         iosNoteVisible: false,
         fallbackNoteVisible: true,
         fallbackMessageKind: 'fileProtocol',
@@ -121,9 +123,9 @@ export class InstallPromptViewModel {
     }
     return {
       cardVisible: true,
-      buttonVisible: false,
+      buttonVisible: true,
       iosNoteVisible: false,
-      fallbackNoteVisible: true,
+      fallbackNoteVisible: false,
       fallbackMessageKind: 'default',
     };
   }
@@ -142,20 +144,29 @@ export class InstallPromptViewModel {
     this.store.update({ buttonVisible: true, iosNoteVisible: false, fallbackNoteVisible: false });
   }
 
-  /** Call when the install button is clicked. */
-  async promptInstall(): Promise<void> {
+  /** Whether the native deferred install prompt is available */
+  hasDeferredPrompt(): boolean {
+    return this.deferredPrompt !== null;
+  }
+
+  /** Call when the install button is clicked. Returns true if native prompt was shown. */
+  async promptInstall(): Promise<boolean> {
     if (!this.deferredPrompt) {
       this.store.update({
-        buttonVisible: false,
         fallbackNoteVisible: true,
         fallbackMessageKind: 'unsupportedBrowser',
       });
-      return;
+      return false;
     }
-    this.deferredPrompt.prompt();
-    await this.deferredPrompt.userChoice;
-    this.deferredPrompt = null;
-    this.store.update({ buttonVisible: false });
+    try {
+      this.deferredPrompt.prompt();
+      await this.deferredPrompt.userChoice;
+      this.deferredPrompt = null;
+      this.store.update({ buttonVisible: false, cardVisible: false });
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   /** Call on the dismiss button, or the 'appinstalled' event — both dismiss and persist in the original app. */

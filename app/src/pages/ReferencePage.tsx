@@ -45,7 +45,7 @@ export function ReferencePage() {
           {models.models.map((m, i) => (
             <div key={i} className="flex flex-col border border-line bg-surface/30 hover:bg-surface/50 transition-colors">
               {/* Top Image Section */}
-              <div className="w-full h-56 bg-surface border-b border-line p-6 relative flex items-center justify-center overflow-hidden">
+              <div className="w-full h-56 bg-model-bg border-b border-line p-6 relative flex items-center justify-center overflow-hidden">
                 {m.unverified && (
                   <span className="absolute top-4 right-4 bg-warn/10 text-warn-dark text-[10px] font-bold px-2 py-1 uppercase tracking-wider z-10 border border-warn/20 rounded-md">
                     Unverified

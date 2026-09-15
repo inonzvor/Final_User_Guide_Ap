@@ -5,6 +5,7 @@
   --color-bg: var(--bg-val);
   --color-surface: var(--surface-val);
   --color-surface-raised: var(--surface-raised-val);
+  --color-model-bg: var(--model-bg-val);
   --color-ink: var(--ink-val);
   --color-ink-soft: var(--ink-soft-val);
   --color-ink-faint: var(--ink-faint-val);
@@ -29,6 +30,7 @@
     --bg-val: oklch(0% 0 0); /* Pure deep black */
     --surface-val: oklch(10% 0 0); /* Sleek dark gray cards */
     --surface-raised-val: oklch(15% 0 0); /* Elevated dark gray */
+    --model-bg-val: oklch(22% 0 0); /* Lighter dark gray for image backgrounds */
     --ink-val: oklch(100% 0 0); /* Sharp white text */
     --ink-soft-val: oklch(70% 0 0); /* Muted gray text */
     --ink-faint-val: oklch(40% 0 0); /* Very muted gray */
@@ -52,6 +54,7 @@
     --bg-val: oklch(98.4% .003 247.858);
     --surface-val: oklch(100% 0 0);
     --surface-raised-val: oklch(96.8% .007 247.896);
+    --model-bg-val: oklch(100% 0 0);
     --ink-val: oklch(12.9% .042 264.695);
     --ink-soft-val: oklch(35% .04 256.788);
     --ink-faint-val: oklch(70.4% .04 256.788);

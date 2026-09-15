@@ -28,7 +28,7 @@ export function GuidePage() {
       
       {/* Power Section */}
       <section className="py-12 md:py-24 border-b border-line" id="power">
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-end mb-14">
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-end mb-8 md:mb-14">
           <div className="lg:col-span-8">
             <span className="font-mono text-[10px] font-bold text-accent uppercase tracking-widest">{power.eyebrow}</span>
             <h2 className="font-display mt-4 max-w-[16ch] text-4xl font-semibold leading-none sm:text-5xl md:text-6xl text-ink uppercase">
@@ -86,7 +86,7 @@ export function GuidePage() {
 
       {/* Guide Intro & Checklist */}
       <section className="py-12 md:py-24 border-b border-line" id="guide">
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-end mb-14">
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-end mb-8 md:mb-14">
           <div className="lg:col-span-8">
             <span className="font-mono text-[10px] font-bold text-secondary uppercase tracking-widest">{intro.eyebrow}</span>
             <h2 className="font-display mt-4 max-w-[16ch] text-4xl font-semibold leading-none sm:text-5xl md:text-6xl text-ink uppercase">
@@ -99,7 +99,7 @@ export function GuidePage() {
         </div>
 
         <div className="bg-surface/40 border border-line p-8 md:p-12 relative overflow-hidden rounded-2xl">
-          <div className="absolute start-0 top-0 border-b border-e border-line px-4 py-3 font-mono text-[9px] text-ink-soft rounded-ee-2xl">CHECKLIST</div>
+          <div className="hidden md:block absolute start-0 top-0 border-b border-e border-line px-4 py-3 font-mono text-[9px] text-ink-soft rounded-ee-2xl">CHECKLIST</div>
           <h3 className="font-display text-2xl font-bold text-ink mb-8 mt-4 uppercase"><Html value={checklist.title} /></h3>
           <ul className="grid sm:grid-cols-2 gap-y-4 gap-x-8">
             {checklist.items.map((item, i) => (
@@ -114,7 +114,7 @@ export function GuidePage() {
 
       {/* Phases / Steps */}
       <section className="py-12 md:py-24" id="phases">
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-end mb-14">
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-end mb-8 md:mb-14">
           <div className="lg:col-span-8">
             <span className="font-mono text-[10px] font-bold text-accent uppercase tracking-widest">{navStrings.setup}</span>
             <h2 className="font-display mt-4 max-w-[16ch] text-4xl font-semibold leading-none sm:text-5xl md:text-6xl text-ink uppercase">
@@ -139,7 +139,7 @@ export function GuidePage() {
                   className="w-full text-start px-6 py-8 flex items-center justify-between gap-4 focus-visible:outline-none"
                 >
                   <div className="flex items-center gap-6">
-                    <span className="font-mono text-sm font-bold text-accent">0{i + 1}</span>
+                    <span className="hidden sm:inline font-mono text-sm font-bold text-accent">0{i + 1}</span>
                     <div>
                       <h3 className="font-display text-xl sm:text-2xl font-bold text-ink uppercase tracking-tight"><Html value={phase.title} /></h3>
                     </div>
@@ -155,11 +155,11 @@ export function GuidePage() {
                   "px-6 transition-all duration-300 ease-in-out origin-top",
                   isOpen ? "pb-8 opacity-100 h-auto" : "h-0 opacity-0 py-0 overflow-hidden"
                 )}>
-                  <div className="ms-11 border-l border-line ps-6 py-2 space-y-12">
+                  <div className="md:ms-11 md:border-l border-line md:ps-6 py-2 space-y-8 md:space-y-12">
                     {phase.steps.map((step, k) => (
                       <div key={k} className="relative">
-                        <div className="absolute -start-[30px] top-1 w-2 h-2 rounded-full bg-accent ring-4 ring-surface" />
-                        <h4 className="font-mono text-[10px] font-bold text-accent uppercase tracking-widest mb-3">STEP {step.number}</h4>
+                        <div className="hidden md:block absolute -start-[30px] top-1 w-2 h-2 rounded-full bg-accent ring-4 ring-surface" />
+                        <h4 className="hidden md:block font-mono text-[10px] font-bold text-accent uppercase tracking-widest mb-3">STEP {step.number}</h4>
                         <div className="prose prose-sm dark:prose-invert max-w-2xl prose-a:text-accent prose-a:no-underline hover:prose-a:underline text-ink-soft leading-relaxed">
                           <p><strong className="font-display text-lg text-ink font-semibold uppercase"><Html value={step.title} /></strong></p>
                           {step.body.map((p, pIdx) => <p key={pIdx}><Html value={p} /></p>)}

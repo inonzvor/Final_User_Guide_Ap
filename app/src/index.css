@@ -89,10 +89,16 @@
   }
 
   .signal-grid {
-    background-image:
-      linear-gradient(var(--line-val) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line-val) 1px, transparent 1px);
-    background-size: 72px 72px;
+    background-image: none;
+  }
+
+  @media (min-width: 768px) {
+    .signal-grid {
+      background-image:
+        linear-gradient(var(--line-val) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line-val) 1px, transparent 1px);
+      background-size: 72px 72px;
+    }
   }
 
   .aurora-bg {

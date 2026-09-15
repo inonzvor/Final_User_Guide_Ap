@@ -11,17 +11,39 @@ export function App() {
   const { page, scrollTargetId } = useViewModel(navigationViewModel);
 
   useEffect(() => {
-    function onBeforeInstallPrompt(event: Event) {
+    function capture(event: Event) {
       event.preventDefault();
       installPromptViewModel.captureInstallPrompt(event as unknown as DeferredInstallPrompt);
+      if (window.location.search.includes('auto_install=true')) {
+        setTimeout(() => {
+          installPromptViewModel.promptInstall();
+        }, 100);
+      }
+    }
+
+    if ((window as unknown as { __deferredPrompt?: Event }).__deferredPrompt) {
+      capture((window as unknown as { __deferredPrompt: Event }).__deferredPrompt);
+    }
+
+    function onBeforeInstallPrompt(event: Event) {
+      capture(event);
+    }
+    function onDeferredReady() {
+      if ((window as unknown as { __deferredPrompt?: Event }).__deferredPrompt) {
+        capture((window as unknown as { __deferredPrompt: Event }).__deferredPrompt);
+      }
     }
     function onAppInstalled() {
       installPromptViewModel.dismiss();
     }
+
     window.addEventListener('beforeinstallprompt', onBeforeInstallPrompt);
+    window.addEventListener('pwa-deferred-ready', onDeferredReady);
     window.addEventListener('appinstalled', onAppInstalled);
+
     return () => {
       window.removeEventListener('beforeinstallprompt', onBeforeInstallPrompt);
+      window.removeEventListener('pwa-deferred-ready', onDeferredReady);
       window.removeEventListener('appinstalled', onAppInstalled);
     };
   }, []);

@@ -61,7 +61,7 @@ export function GuidePage() {
               <p><Html value={power.poe.p1} /></p>
               <p><Html value={power.poe.p2} /></p>
             </div>
-            <div className="bg-surface/50 p-4 text-xs text-ink-soft italic border-l-2 border-accent rounded-r-lg">
+            <div className="bg-surface/50 p-4 text-xs text-ink-soft italic border-s-2 border-accent rounded-e-lg">
               <Html value={power.poe.tip} />
             </div>
           </div>
@@ -77,7 +77,7 @@ export function GuidePage() {
               <p><Html value={power.adapter.p1} /></p>
               <p><Html value={power.adapter.p2} /></p>
             </div>
-            <div className="bg-surface/50 p-4 text-xs text-ink-soft italic border-l-2 border-secondary mt-auto rounded-r-lg">
+            <div className="bg-surface/50 p-4 text-xs text-ink-soft italic border-s-2 border-secondary mt-auto rounded-e-lg">
               <Html value={power.adapter.tip} />
             </div>
           </div>
@@ -99,7 +99,7 @@ export function GuidePage() {
         </div>
 
         <div className="bg-surface/40 border border-line p-8 md:p-12 relative overflow-hidden rounded-2xl">
-          <div className="absolute left-0 top-0 border-b border-r border-line px-4 py-3 font-mono text-[9px] text-ink-soft rounded-br-2xl">CHECKLIST</div>
+          <div className="absolute start-0 top-0 border-b border-e border-line px-4 py-3 font-mono text-[9px] text-ink-soft rounded-ee-2xl">CHECKLIST</div>
           <h3 className="font-display text-2xl font-bold text-ink mb-8 mt-4 uppercase"><Html value={checklist.title} /></h3>
           <ul className="grid sm:grid-cols-2 gap-y-4 gap-x-8">
             {checklist.items.map((item, i) => (
@@ -123,15 +123,15 @@ export function GuidePage() {
           </div>
         </div>
 
-        <div className="space-y-0 border-y border-line">
+        <div className="space-y-4">
           {phases.map((phase, i) => {
             const isOpen = openPhase === i;
             return (
               <div 
                 key={i} 
                 className={cn(
-                  "border-b border-line last:border-b-0 transition-all duration-300",
-                  isOpen ? "bg-surface/30" : "hover:bg-surface/10"
+                  "border-2 rounded-2xl transition-all duration-300 overflow-hidden",
+                  isOpen ? "bg-surface-raised shadow-md border-accent" : "bg-surface border-line hover:border-ink/40"
                 )}
               >
                 <button
@@ -146,7 +146,7 @@ export function GuidePage() {
                   </div>
                   <div className={cn(
                     "w-8 h-8 flex items-center justify-center shrink-0 transition-colors border rounded-lg",
-                    isOpen ? "border-accent text-accent bg-accent/10" : "border-line text-ink-soft bg-surface/50"
+                    isOpen ? "border-accent text-accent bg-accent/10" : "border-ink-soft text-ink-soft bg-surface/50"
                   )}>
                     {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                   </div>
@@ -155,10 +155,10 @@ export function GuidePage() {
                   "px-6 transition-all duration-300 ease-in-out origin-top",
                   isOpen ? "pb-8 opacity-100 h-auto" : "h-0 opacity-0 py-0 overflow-hidden"
                 )}>
-                  <div className="ml-11 border-l border-line pl-6 py-2 space-y-12">
+                  <div className="ms-11 border-l border-line ps-6 py-2 space-y-12">
                     {phase.steps.map((step, k) => (
                       <div key={k} className="relative">
-                        <div className="absolute -left-[30px] top-1 w-2 h-2 rounded-full bg-accent ring-4 ring-surface" />
+                        <div className="absolute -start-[30px] top-1 w-2 h-2 rounded-full bg-accent ring-4 ring-surface" />
                         <h4 className="font-mono text-[10px] font-bold text-accent uppercase tracking-widest mb-3">STEP {step.number}</h4>
                         <div className="prose prose-sm dark:prose-invert max-w-2xl prose-a:text-accent prose-a:no-underline hover:prose-a:underline text-ink-soft leading-relaxed">
                           <p><strong className="font-display text-lg text-ink font-semibold uppercase"><Html value={step.title} /></strong></p>
@@ -169,7 +169,7 @@ export function GuidePage() {
                         </div>
                         {step.detail && (
                           <div className={cn(
-                            "mt-6 bg-surface/50 p-4 text-sm italic border-l-2 rounded-r-lg",
+                            "mt-6 bg-surface/50 p-4 text-sm italic border-s-2 rounded-e-lg",
                             step.detailVariant === 'caution' ? "border-warn text-warn-dark bg-warn/10" : "border-line text-ink-soft"
                           )}>
                             <Html value={step.detail} />

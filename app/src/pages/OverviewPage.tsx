@@ -71,18 +71,13 @@ export function OverviewPage() {
 
         <div className="w-full bg-surface/40 border border-line p-6 md:p-12 transition-all duration-500 overflow-hidden relative">
           <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent pointer-events-none group-hover:from-accent/10 transition-colors duration-500" />
-          <div className="absolute left-0 top-0 border-b border-r border-line px-4 py-3 font-mono text-[9px] text-ink-soft">SHEET 01 / DIAGRAM</div>
+          <div className="absolute start-0 top-0 border-b border-e border-line px-4 py-3 font-mono text-[9px] text-ink-soft">SHEET 01 / DIAGRAM</div>
           
           <div className="relative max-w-4xl mx-auto flex flex-col items-center mt-8">
             <div className="flex flex-col md:flex-row items-center md:items-start justify-between w-full gap-6 md:gap-2 relative py-6">
               
-              {/* Desktop Connection Line Background */}
-              <div className="hidden md:block absolute top-[72px] left-20 right-20 h-[1px] bg-line -z-0">
-                 <div className="absolute top-0 left-1/3 right-1/3 h-full bg-accent" />
-              </div>
-
               {/* Internet */}
-              <div className="flex flex-col items-center text-center z-10 w-32">
+              <div className="flex flex-col items-center text-center z-10 relative w-32">
                 <div className="grid size-24 place-items-center border border-accent/40 bg-accent/5 mb-5 rounded-xl">
                   <Globe className="w-8 h-8 text-ink" strokeWidth={1.5} />
                 </div>
@@ -91,13 +86,15 @@ export function OverviewPage() {
               </div>
 
               {/* Arrow 1 */}
-              <div className="flex items-center justify-center w-8 h-8 md:h-24 text-ink-soft z-10 shrink-0">
-                <ArrowRight className="w-4 h-4 hidden md:block" strokeWidth={2} />
-                <ArrowDown className="w-4 h-4 md:hidden" strokeWidth={2} />
+              <div className="flex items-center justify-center w-8 h-8 md:h-24 text-ink-soft z-10 shrink-0 relative">
+                <div className="flex items-center justify-center w-10 h-10 bg-bg rounded-full border border-line">
+                  <ArrowRight className="w-5 h-5 hidden md:block rtl:rotate-180" strokeWidth={1.5} />
+                  <ArrowDown className="w-5 h-5 md:hidden" strokeWidth={1.5} />
+                </div>
               </div>
 
               {/* Modem/Router */}
-              <div className="flex flex-col items-center text-center z-10 w-32">
+              <div className="flex flex-col items-center text-center z-10 relative w-32">
                 <div className="grid size-24 place-items-center border border-accent/40 bg-accent/5 mb-5 rounded-xl">
                   <RouterIcon className="w-8 h-8 text-ink" strokeWidth={1.5} />
                 </div>
@@ -106,13 +103,15 @@ export function OverviewPage() {
               </div>
 
               {/* Arrow 2 */}
-              <div className="flex items-center justify-center w-8 h-8 md:h-24 text-accent z-10 shrink-0">
-                <ArrowRight className="w-4 h-4 hidden md:block" strokeWidth={2} />
-                <ArrowDown className="w-4 h-4 md:hidden" strokeWidth={2} />
+              <div className="flex items-center justify-center w-8 h-8 md:h-24 text-accent z-10 shrink-0 relative">
+                <div className="flex items-center justify-center w-10 h-10 bg-bg rounded-full border border-accent/40 shadow-sm">
+                  <ArrowRight className="w-5 h-5 hidden md:block rtl:rotate-180" strokeWidth={2} />
+                  <ArrowDown className="w-5 h-5 md:hidden" strokeWidth={2} />
+                </div>
               </div>
 
               {/* Access Point */}
-              <div className="flex flex-col items-center text-center z-10 w-32">
+              <div className="flex flex-col items-center text-center z-10 relative w-32">
                 <div className="grid size-24 place-items-center border border-accent bg-accent mb-5 relative rounded-xl">
                   <Wifi className="w-8 h-8 text-on-accent" strokeWidth={1.5} />
                   <div className="absolute inset-0 border border-accent animate-ping opacity-20 duration-[3000ms] rounded-xl" />
@@ -122,13 +121,15 @@ export function OverviewPage() {
               </div>
 
               {/* Arrow 3 */}
-              <div className="flex items-center justify-center w-8 h-8 md:h-24 text-ink-soft z-10 shrink-0">
-                <ArrowRight className="w-4 h-4 hidden md:block" strokeWidth={2} />
-                <ArrowDown className="w-4 h-4 md:hidden" strokeWidth={2} />
+              <div className="flex items-center justify-center w-8 h-8 md:h-24 text-ink-soft z-10 shrink-0 relative">
+                <div className="flex items-center justify-center w-10 h-10 bg-bg rounded-full border border-line">
+                  <ArrowRight className="w-5 h-5 hidden md:block rtl:rotate-180" strokeWidth={1.5} />
+                  <ArrowDown className="w-5 h-5 md:hidden" strokeWidth={1.5} />
+                </div>
               </div>
 
               {/* Devices */}
-              <div className="flex flex-col items-center text-center z-10 w-32">
+              <div className="flex flex-col items-center text-center z-10 relative w-32">
                 <div className="grid size-24 place-items-center border border-accent/40 bg-accent/5 mb-5 relative rounded-xl">
                   <div className="flex items-center gap-2">
                     <Laptop className="w-5 h-5 text-ink" strokeWidth={1.5} />
@@ -166,7 +167,7 @@ export function OverviewPage() {
             </div>
           </div>
           <div className="space-y-8">
-            <blockquote className="border-l-4 border-accent pl-6 py-2 text-2xl font-display font-medium text-ink bg-surface/30 pr-6 rounded-r-2xl">
+            <blockquote className="border-s-4 border-accent ps-6 py-2 text-2xl font-display font-medium text-ink bg-surface/30 pe-6 rounded-e-2xl">
               <Html value={ov.calloutP} />
             </blockquote>
             <p className="text-lg text-ink-soft leading-relaxed"><Html value={ov.p2} /></p>

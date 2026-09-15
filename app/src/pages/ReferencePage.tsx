@@ -45,7 +45,7 @@ export function ReferencePage() {
           {models.models.map((m, i) => (
             <div key={i} className="flex flex-col border border-line bg-surface/30 hover:bg-surface/50 transition-colors">
               {/* Top Image Section */}
-              <div className="w-full h-56 bg-ink/5 border-b border-line/50 p-6 relative flex items-center justify-center overflow-hidden">
+              <div className="w-full h-56 bg-surface border-b border-line p-6 relative flex items-center justify-center overflow-hidden">
                 {m.unverified && (
                   <span className="absolute top-4 right-4 bg-warn/10 text-warn-dark text-[10px] font-bold px-2 py-1 uppercase tracking-wider z-10 border border-warn/20 rounded-md">
                     Unverified
@@ -167,15 +167,15 @@ export function ReferencePage() {
           </p>
         </div>
 
-        <div className="mt-14 space-y-0 border-y border-line">
+        <div className="mt-14 space-y-4">
           {faq.items.map((q, i) => {
             const isOpen = openFaq === i;
             return (
               <div 
                 key={i} 
                 className={cn(
-                  "border-b border-line last:border-b-0 transition-all duration-300",
-                  isOpen ? "bg-surface/30" : "hover:bg-surface/10"
+                  "border-2 rounded-2xl transition-all duration-300 overflow-hidden",
+                  isOpen ? "bg-surface-raised shadow-md border-accent" : "bg-surface border-line hover:border-ink/40"
                 )}
               >
                 <button
@@ -185,7 +185,7 @@ export function ReferencePage() {
                   <strong className="text-xl font-display font-semibold text-ink uppercase tracking-tight">{q.title}</strong>
                   <div className={cn(
                     "w-8 h-8 flex items-center justify-center shrink-0 transition-colors border rounded-lg",
-                    isOpen ? "border-accent text-accent bg-accent/10" : "border-line text-ink-soft bg-surface/50"
+                    isOpen ? "border-accent text-accent bg-accent/10" : "border-ink-soft text-ink-soft bg-surface/50"
                   )}>
                     {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                   </div>

@@ -1,7 +1,7 @@
 import { useViewModel } from '../useViewModel';
 import { navigationViewModel, languageViewModel } from '../viewmodels';
 import { getLocalizedNav } from '../../../src';
-import { FileText, Book, HelpCircle, Server, Menu, X, Rocket } from 'lucide-react';
+import { FileText, Book, HelpCircle, Server, Menu, X, Rocket, Zap, List } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { LangToggle } from './LangToggle';
 import { cn } from '../lib/utils';
@@ -9,27 +9,21 @@ import { useState } from 'react';
 
 const ICONS = {
   overview: FileText,
-  power: ZapIcon,
-  setup: Rocket,
-  models: Server,
-  glossary: Book,
-  help: HelpCircle,
+  guide: Rocket,
+  reference: Book,
 } as const;
-
-// Temporary placeholder for Zap since we want to avoid import conflicts or use something else
-function ZapIcon(props: any) {
-  return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-    </svg>
-  );
-}
 
 export function Sidebar() {
   const { page, scrollTargetId } = useViewModel(navigationViewModel);
-  const currentPage = scrollTargetId || page;
+  const currentPage = page;
   const { lang } = useViewModel(languageViewModel);
   const nav = getLocalizedNav(lang);
+
+  const navItems = [
+    { id: 'overview', icon: FileText, label: nav.overview },
+    { id: 'guide', icon: Rocket, label: nav.groupGuide },
+    { id: 'reference', icon: Book, label: nav.groupReference }
+  ];
 
   return (
     <aside className="hidden lg:flex flex-col w-72 h-screen sticky top-0 border-r border-line bg-surface/30 backdrop-blur-xl shrink-0 py-8 z-50">
@@ -40,16 +34,16 @@ export function Sidebar() {
         <span className="font-display font-bold tracking-tight text-ink uppercase">{nav.brand}</span>
       </div>
 
-      <nav className="flex-1 px-4 space-y-8 overflow-y-auto">
+      <nav className="flex-1 px-4 space-y-4 overflow-y-auto">
         <div className="space-y-2">
-          {['overview', 'power', 'setup'].map((id) => {
-            const Icon = ICONS[id as keyof typeof ICONS];
-            const isActive = currentPage === id;
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = currentPage === item.id;
             return (
               <a
-                key={id}
-                href={`#${id}`}
-                onClick={(e) => { e.preventDefault(); navigationViewModel.navigateToAnchor(id); }}
+                key={item.id}
+                href={`#${item.id}`}
+                onClick={(e) => { e.preventDefault(); navigationViewModel.navigateToAnchor(item.id); }}
                 className={cn(
                   "w-full flex items-center gap-3 px-4 py-3 rounded-xl text-start font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
                   isActive 
@@ -58,34 +52,7 @@ export function Sidebar() {
                 )}
               >
                 <Icon className={cn("w-5 h-5", isActive ? "text-accent" : "text-ink-faint")} />
-                <span className="uppercase tracking-tight text-sm">{nav[id as keyof typeof nav]}</span>
-              </a>
-            );
-          })}
-        </div>
-
-        <div className="px-4">
-          <div className="h-px bg-line w-full" />
-        </div>
-
-        <div className="space-y-2">
-          {['models', 'glossary', 'help'].map((id) => {
-            const Icon = ICONS[id as keyof typeof ICONS];
-            const isActive = currentPage === id;
-            return (
-              <a
-                key={id}
-                href={`#${id}`}
-                onClick={(e) => { e.preventDefault(); navigationViewModel.navigateToAnchor(id); }}
-                className={cn(
-                  "w-full flex items-center gap-3 px-4 py-3 rounded-xl text-start font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
-                  isActive 
-                    ? "bg-surface-raised text-accent shadow-sm border border-line" 
-                    : "text-ink-soft hover:bg-surface hover:text-ink border border-transparent"
-                )}
-              >
-                <Icon className={cn("w-5 h-5", isActive ? "text-accent" : "text-ink-faint")} />
-                <span className="uppercase tracking-tight text-sm">{nav[id as keyof typeof nav]}</span>
+                <span className="uppercase tracking-tight text-sm">{item.label}</span>
               </a>
             );
           })}
@@ -125,44 +92,37 @@ export function MobileHeader() {
 
 export function MobileBottomNav() {
   const { page, scrollTargetId } = useViewModel(navigationViewModel);
-  const currentPage = scrollTargetId || page;
+  const currentPage = page;
   const { lang } = useViewModel(languageViewModel);
   const nav = getLocalizedNav(lang);
 
-  const primaryItems = ['overview', 'setup', 'models'] as const;
+  const navItems = [
+    { id: 'overview', icon: FileText, label: nav.overview },
+    { id: 'guide', icon: Rocket, label: nav.groupGuide },
+    { id: 'reference', icon: Book, label: nav.groupReference }
+  ];
 
   return (
     <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-surface/90 backdrop-blur-xl border-t border-line z-50 pb-safe">
       <div className="flex items-center justify-around p-2">
-        {primaryItems.map((id) => {
-          const Icon = ICONS[id];
-          const isActive = currentPage === id;
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          const isActive = currentPage === item.id;
           return (
             <a
-              key={id}
-              href={`#${id}`}
-              onClick={(e) => { e.preventDefault(); navigationViewModel.navigateToAnchor(id); }}
+              key={item.id}
+              href={`#${item.id}`}
+              onClick={(e) => { e.preventDefault(); navigationViewModel.navigateToAnchor(item.id); }}
               className={cn(
                 "flex flex-col items-center gap-1 p-2 min-w-[64px] rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
                 isActive ? "text-accent" : "text-ink-soft hover:text-ink"
               )}
             >
               <Icon className={cn("w-5 h-5", isActive ? "text-accent" : "text-ink-faint")} />
-              <span className="text-[10px] font-medium uppercase tracking-tight">{nav[id]}</span>
+              <span className="text-[10px] font-medium uppercase tracking-tight">{item.label}</span>
             </a>
           );
         })}
-        <a
-          href="#help"
-          onClick={(e) => { e.preventDefault(); navigationViewModel.navigateToAnchor('help'); }}
-          className={cn(
-            "flex flex-col items-center gap-1 p-2 min-w-[64px] rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
-            currentPage === 'help' || currentPage === 'glossary' || currentPage === 'power' ? "text-accent" : "text-ink-soft hover:text-ink"
-          )}
-        >
-          <Menu className={cn("w-5 h-5", currentPage === 'help' || currentPage === 'glossary' || currentPage === 'power' ? "text-accent" : "text-ink-faint")} />
-          <span className="text-[10px] font-medium uppercase tracking-tight">{nav.menuBtn}</span>
-        </a>
       </div>
     </div>
   );

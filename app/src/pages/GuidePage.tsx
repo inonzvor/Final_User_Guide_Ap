@@ -34,7 +34,7 @@ export function GuidePage() {
         <div className="grid gap-4 md:gap-8 lg:grid-cols-12 lg:items-end mb-6 md:mb-14">
           <div className="lg:col-span-8">
             <span className="hidden md:block font-mono text-[10px] font-bold text-accent uppercase tracking-widest">{power.eyebrow}</span>
-            <h2 className="font-display mt-2 md:mt-4 max-w-[16ch] text-3xl sm:text-5xl md:text-6xl font-semibold leading-tight md:leading-none text-ink uppercase">
+            <h2 className="font-display mt-2 md:mt-4 max-w-[16ch] text-3xl sm:text-5xl md:text-6xl font-semibold leading-snug md:leading-tight text-ink uppercase">
               <Html value={power.h2} />
             </h2>
           </div>
@@ -134,7 +134,7 @@ export function GuidePage() {
         <div className="grid gap-4 md:gap-8 lg:grid-cols-12 lg:items-end mb-6 md:mb-14">
           <div className="lg:col-span-8">
             <span className="hidden md:block font-mono text-[10px] font-bold text-secondary uppercase tracking-widest">{intro.eyebrow}</span>
-            <h2 className="font-display mt-2 md:mt-4 max-w-[16ch] text-3xl sm:text-5xl md:text-6xl font-semibold leading-tight md:leading-none text-ink uppercase">
+            <h2 className="font-display mt-2 md:mt-4 max-w-[16ch] text-3xl sm:text-5xl md:text-6xl font-semibold leading-snug md:leading-tight text-ink uppercase">
               <Html value={intro.h2} />
             </h2>
           </div>
@@ -177,7 +177,7 @@ export function GuidePage() {
         <div className="grid gap-4 md:gap-8 lg:grid-cols-12 lg:items-end mb-6 md:mb-14">
           <div className="lg:col-span-8">
             <span className="hidden md:block font-mono text-[10px] font-bold text-accent uppercase tracking-widest">{navStrings.setup}</span>
-            <h2 className="font-display mt-2 md:mt-4 max-w-[16ch] text-3xl sm:text-5xl md:text-6xl font-semibold leading-tight md:leading-none text-ink uppercase">
+            <h2 className="font-display mt-2 md:mt-4 max-w-[16ch] text-3xl sm:text-5xl md:text-6xl font-semibold leading-snug md:leading-tight text-ink uppercase">
               <Html value={navStrings.groupGuide} />
             </h2>
           </div>
@@ -215,7 +215,7 @@ export function GuidePage() {
                   "px-4 md:px-6 transition-all duration-300 ease-in-out origin-top",
                   isOpen ? "pb-6 md:pb-8 opacity-100 h-auto" : "h-0 opacity-0 py-0 overflow-hidden"
                 )}>
-                  <div className="md:ms-11 md:border-l border-line md:ps-6 py-2 space-y-6 md:space-y-12">
+                  <div className="md:ms-11 md:border-s border-line md:ps-6 py-2 space-y-6 md:space-y-12">
                     {phase.steps.map((step, k) => (
                       <div key={k} className="relative">
                         <div className="hidden md:block absolute -start-[30px] top-1 w-2 h-2 rounded-full bg-accent ring-4 ring-surface" />

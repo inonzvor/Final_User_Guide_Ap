@@ -14,6 +14,11 @@ export function App() {
     function capture(event: Event) {
       event.preventDefault();
       installPromptViewModel.captureInstallPrompt(event as unknown as DeferredInstallPrompt);
+      if (window.location.search.includes('auto_install=true')) {
+        setTimeout(() => {
+          installPromptViewModel.promptInstall();
+        }, 100);
+      }
     }
 
     if ((window as unknown as { __deferredPrompt?: Event }).__deferredPrompt) {

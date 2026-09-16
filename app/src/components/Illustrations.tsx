@@ -66,7 +66,7 @@ export function StepIllustration({ stepId, className }: { stepId: string, classN
     case 'step6':
       return (
         <IllustrationWrapper bg="bg-accent/5">
-          <div className="flex items-center">
+          <div className="flex items-center rtl:scale-x-[-1]">
             {/* Cable line */}
             <div className="w-24 h-5 bg-accent rounded-l-full shadow-inner" />
             
@@ -91,7 +91,7 @@ export function StepIllustration({ stepId, className }: { stepId: string, classN
     case 'step7': // Power adapter
       return (
         <IllustrationWrapper bg="bg-secondary/5">
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 rtl:scale-x-[-1]">
              {/* Wall Plug */}
              <div className="w-16 h-20 bg-surface border-[3px] border-secondary rounded-2xl relative flex flex-col items-center justify-center shadow-md">
                 <div className="absolute -left-3 top-4 w-3 h-2.5 bg-secondary rounded-l-sm" />
@@ -110,7 +110,7 @@ export function StepIllustration({ stepId, className }: { stepId: string, classN
     case 'step8': // Light
       return (
         <IllustrationWrapper>
-          <div className="w-36 h-36 rounded-2xl bg-surface border border-line flex items-center justify-center relative shadow-sm">
+          <div className="w-36 h-36 rounded-2xl bg-surface border border-line flex items-center justify-center relative shadow-sm overflow-hidden">
              {/* The glowing LED */}
              <div className="w-5 h-5 rounded-2xl bg-success shadow-[0_0_20px_rgba(13,148,136,1)] relative z-10">
                <div className="absolute inset-0 bg-white rounded-2xl opacity-60 blur-[2px]" />

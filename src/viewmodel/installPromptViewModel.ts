@@ -94,7 +94,7 @@ export class InstallPromptViewModel {
   }
 
   private computeInitialState(): InstallPromptState {
-    if (this.env.isStandalone() || this.env.wasDismissed()) {
+    if (this.env.isStandalone()) {
       return {
         cardVisible: false,
         buttonVisible: false,
@@ -106,7 +106,7 @@ export class InstallPromptViewModel {
     if (this.env.isIOS()) {
       return {
         cardVisible: true,
-        buttonVisible: false,
+        buttonVisible: true,
         iosNoteVisible: true,
         fallbackNoteVisible: false,
         fallbackMessageKind: 'default',
@@ -115,7 +115,7 @@ export class InstallPromptViewModel {
     if (this.env.isFileProtocol()) {
       return {
         cardVisible: true,
-        buttonVisible: false,
+        buttonVisible: true,
         iosNoteVisible: false,
         fallbackNoteVisible: true,
         fallbackMessageKind: 'fileProtocol',
@@ -123,9 +123,9 @@ export class InstallPromptViewModel {
     }
     return {
       cardVisible: true,
-      buttonVisible: false,
+      buttonVisible: true,
       iosNoteVisible: false,
-      fallbackNoteVisible: true,
+      fallbackNoteVisible: false,
       fallbackMessageKind: 'default',
     };
   }
@@ -153,7 +153,6 @@ export class InstallPromptViewModel {
   async promptInstall(): Promise<boolean> {
     if (!this.deferredPrompt) {
       this.store.update({
-        buttonVisible: false,
         fallbackNoteVisible: true,
         fallbackMessageKind: 'unsupportedBrowser',
       });

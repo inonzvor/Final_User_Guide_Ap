@@ -46,6 +46,7 @@
   "nav.ariaLabel" : "Guide sections",
   "setup.step7.p" : "Skip this step if you're using PoE only. If a separate power adapter came in the box, plug its small round end into the Access Point's power port, then plug the other end — the brick — into a normal wall outlet, the same kind you'd use for a phone charger.",
   "overview.diagram.laptop" : "laptop / POS",
+  "overview.diagram.devices" : "Devices",
   "model6.rating" : "Outdoor, weatherproof (IP68), −30°C to 55°C",
   "setup.phase2.title" : "Part 2 — Connect the cables",
   "power.warnCallout" : "<strong>Not sure which method your store uses?</strong> Ask your manager or IT support before connecting anything. Using the wrong adapter can damage the device.",

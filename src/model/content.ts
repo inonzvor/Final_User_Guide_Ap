@@ -60,6 +60,7 @@ export const overview = {
     phone: 'overview.diagram.phone',
     tablet: 'overview.diagram.tablet',
     laptop: 'overview.diagram.laptop',
+    devices: 'overview.diagram.devices',
     caption: 'overview.diagram.caption',
   },
 } as const;

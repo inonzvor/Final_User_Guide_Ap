@@ -23,11 +23,11 @@ export function OverviewPage() {
             <p className="hidden md:block font-mono text-[10px] font-bold text-accent uppercase tracking-widest mb-4">
               {hero.eyebrow}
             </p>
-            <h1 className="font-display text-4xl sm:text-7xl lg:text-8xl font-semibold leading-[.9] md:leading-[.85] tracking-tight text-ink max-w-[15ch] uppercase">
+            <h1 className="font-display text-4xl sm:text-7xl lg:text-8xl font-semibold leading-[1.2] sm:leading-[1.15] md:leading-[1.12] tracking-tight text-ink max-w-[15ch] uppercase">
               <Html value={hero.h1} />
             </h1>
           </div>
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-4 translate-y-6 md:translate-y-8">
             <p className="text-base md:text-xl text-ink-soft mb-4 md:mb-6 leading-relaxed">
               <Html value={hero.sub} />
             </p>
@@ -62,7 +62,7 @@ export function OverviewPage() {
             <span className="hidden md:block font-mono text-[10px] font-bold text-accent uppercase tracking-widest">
               {ov.diagram.ariaLabel}
             </span>
-            <h2 className="font-display mt-2 md:mt-4 max-w-[16ch] text-3xl sm:text-5xl md:text-6xl font-semibold leading-tight md:leading-none text-ink uppercase">
+            <h2 className="font-display mt-2 md:mt-4 max-w-[16ch] text-3xl sm:text-5xl md:text-6xl font-semibold leading-snug md:leading-tight text-ink uppercase">
               <Html value={ov.h2} />
             </h2>
           </div>
@@ -79,12 +79,12 @@ export function OverviewPage() {
             <div className="flex flex-col md:flex-row items-center md:items-start justify-between w-full gap-2 md:gap-2 relative py-2 md:py-6">
               
               {/* Internet */}
-              <div className="flex flex-col items-center text-center z-10 relative w-full md:w-32">
+              <div className="flex flex-col items-center text-center z-10 relative w-full md:w-44">
                 <div className="grid size-14 md:size-24 place-items-center border border-accent/40 bg-accent/5 mb-1.5 md:mb-5 rounded-xl">
                   <Globe className="w-6 h-6 md:w-8 md:h-8 text-ink" strokeWidth={1.5} />
                 </div>
                 <span className="hidden md:block font-mono text-[9px] text-accent">NODE / 01</span>
-                <b className="font-display mt-0.5 md:mt-2 text-sm md:text-lg text-ink uppercase tracking-tight"><Html value={ov.diagram.internet} /></b>
+                <b className="font-display mt-0.5 md:mt-2 text-sm md:text-base lg:text-lg text-ink uppercase tracking-tight whitespace-nowrap"><Html value={ov.diagram.internet} /></b>
               </div>
 
               {/* Arrow 1 */}
@@ -96,12 +96,12 @@ export function OverviewPage() {
               </div>
 
               {/* Modem/Router */}
-              <div className="flex flex-col items-center text-center z-10 relative w-full md:w-32">
+              <div className="flex flex-col items-center text-center z-10 relative w-full md:w-44">
                 <div className="grid size-14 md:size-24 place-items-center border border-accent/40 bg-accent/5 mb-1.5 md:mb-5 rounded-xl">
                   <RouterIcon className="w-6 h-6 md:w-8 md:h-8 text-ink" strokeWidth={1.5} />
                 </div>
                 <span className="hidden md:block font-mono text-[9px] text-accent">NODE / 02</span>
-                <b className="font-display mt-0.5 md:mt-2 text-sm md:text-lg text-ink uppercase tracking-tight"><Html value={ov.diagram.router} /></b>
+                <b className="font-display mt-0.5 md:mt-2 text-sm md:text-base lg:text-lg text-ink uppercase tracking-tight whitespace-nowrap"><Html value={ov.diagram.router} /></b>
               </div>
 
               {/* Arrow 2 */}
@@ -113,13 +113,13 @@ export function OverviewPage() {
               </div>
 
               {/* Access Point */}
-              <div className="flex flex-col items-center text-center z-10 relative w-full md:w-32">
-                <div className="grid size-14 md:size-24 place-items-center border border-accent bg-accent mb-1.5 md:mb-5 relative rounded-xl">
-                  <Wifi className="w-6 h-6 md:w-8 md:h-8 text-on-accent" strokeWidth={1.5} />
-                  <div className="hidden md:block absolute inset-0 border border-accent animate-ping opacity-20 duration-[3000ms] rounded-xl" />
+              <div className="flex flex-col items-center text-center z-10 relative w-full md:w-44">
+                <div className="grid size-14 md:size-24 place-items-center border border-accent bg-accent mb-1.5 md:mb-5 relative rounded-xl overflow-hidden">
+                  <Wifi className="w-6 h-6 md:w-8 md:h-8 text-on-accent relative z-10" strokeWidth={1.5} />
+                  <div className="hidden md:block absolute inset-0 border border-accent animate-ping opacity-20 duration-[3000ms] rounded-xl pointer-events-none" />
                 </div>
                 <span className="hidden md:block font-mono text-[9px] text-accent">NODE / 03</span>
-                <b className="font-display mt-0.5 md:mt-2 text-sm md:text-lg text-accent uppercase tracking-tight"><Html value={ov.diagram.ap} /></b>
+                <b className="font-display mt-0.5 md:mt-2 text-sm md:text-base lg:text-lg text-accent uppercase tracking-tight whitespace-nowrap"><Html value={ov.diagram.ap} /></b>
               </div>
 
               {/* Arrow 3 */}
@@ -131,7 +131,7 @@ export function OverviewPage() {
               </div>
 
               {/* Devices */}
-              <div className="flex flex-col items-center text-center z-10 relative w-full md:w-32">
+              <div className="flex flex-col items-center text-center z-10 relative w-full md:w-44">
                 <div className="grid size-14 md:size-24 place-items-center border border-accent/40 bg-accent/5 mb-1.5 md:mb-5 relative rounded-xl">
                   <div className="flex items-center gap-1.5 md:gap-2">
                     <Laptop className="w-4 h-4 md:w-5 md:h-5 text-ink" strokeWidth={1.5} />
@@ -139,7 +139,7 @@ export function OverviewPage() {
                   </div>
                 </div>
                 <span className="hidden md:block font-mono text-[9px] text-accent">NODE / 04</span>
-                <b className="font-display mt-0.5 md:mt-2 text-sm md:text-lg text-ink uppercase tracking-tight">Devices</b>
+                <b className="font-display mt-0.5 md:mt-2 text-sm md:text-base lg:text-lg text-ink uppercase tracking-tight whitespace-nowrap"><Html value={ov.diagram.devices} /></b>
               </div>
 
             </div>
@@ -156,7 +156,7 @@ export function OverviewPage() {
         <div className="grid gap-4 md:gap-8 border-b border-line pb-5 md:pb-7 lg:grid-cols-12 lg:items-end mb-6 md:mb-14">
           <div className="lg:col-span-8">
             <span className="hidden md:block font-mono text-[10px] font-bold text-secondary uppercase tracking-widest">{ov.eyebrow}</span>
-            <h2 className="font-display mt-2 md:mt-4 max-w-[16ch] text-3xl sm:text-5xl md:text-6xl font-semibold leading-tight md:leading-none text-ink uppercase">
+            <h2 className="font-display mt-2 md:mt-4 max-w-[16ch] text-3xl sm:text-5xl md:text-6xl font-semibold leading-snug md:leading-tight text-ink uppercase">
               <Html value={ov.h2} />
             </h2>
           </div>

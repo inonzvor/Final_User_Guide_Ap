@@ -26,7 +26,7 @@ export function Sidebar() {
   ];
 
   return (
-    <aside className="hidden lg:flex flex-col w-72 h-screen sticky top-0 border-r border-line bg-surface/30 backdrop-blur-xl shrink-0 py-8 z-50">
+    <aside className="hidden lg:flex flex-col w-72 h-screen sticky top-0 border-e border-line bg-surface/30 backdrop-blur-xl shrink-0 py-8 z-50">
       <div className="px-8 mb-12 flex items-center gap-3">
         <div className="p-2 bg-accent/10 rounded-xl">
           <Server className="w-6 h-6 text-accent" />
@@ -103,7 +103,7 @@ export function MobileBottomNav() {
   ];
 
   return (
-    <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-surface/90 backdrop-blur-xl border-t border-line z-50 pb-safe">
+    <div className="lg:hidden fixed bottom-0 inset-x-0 bg-surface/90 backdrop-blur-xl border-t border-line z-50 pb-safe">
       <div className="flex items-center justify-around p-2">
         {navItems.map((item) => {
           const Icon = item.icon;

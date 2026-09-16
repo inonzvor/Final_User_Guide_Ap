@@ -30,10 +30,10 @@ export function ReferencePage() {
       
       {/* Models Compare Section */}
       <section className="border-b border-line py-8 md:py-20" id="models">
-        <div className="grid gap-4 md:gap-8 border-b border-line pb-5 md:pb-7 lg:grid-cols-12 lg:items-end">
+        <div className="grid gap-4 md:gap-8 border-b border-line pb-5 md:pb-7 lg:grid-cols-12 lg:items-start">
           <div className="lg:col-span-8">
             <span className="hidden md:block font-mono text-[10px] font-bold text-accent uppercase tracking-widest">{models.eyebrow}</span>
-            <h2 className="font-display mt-2 md:mt-4 max-w-[16ch] text-3xl sm:text-5xl md:text-6xl font-semibold leading-tight md:leading-none text-ink uppercase">
+            <h2 className="font-display mt-2 md:mt-4 max-w-[16ch] text-3xl sm:text-5xl md:text-6xl font-semibold leading-snug md:leading-tight text-ink uppercase">
               <Html value={models.h2} />
             </h2>
           </div>
@@ -48,12 +48,12 @@ export function ReferencePage() {
               {/* Top Image Section */}
               <div className="w-full h-44 sm:h-56 bg-model-bg border-b border-line p-4 md:p-6 relative flex items-center justify-center overflow-hidden">
                 {m.unverified && (
-                  <span className="absolute top-3 md:top-4 right-3 md:right-4 bg-warn/10 text-warn-dark text-[9px] md:text-[10px] font-bold px-2 py-0.5 md:py-1 uppercase tracking-wider z-10 border border-warn/20 rounded-md">
+                  <span className="absolute top-3 md:top-4 end-3 md:end-4 bg-warn/10 text-warn-dark text-[9px] md:text-[10px] font-bold px-2 py-0.5 md:py-1 uppercase tracking-wider z-10 border border-warn/20 rounded-md">
                     Unverified
                   </span>
                 )}
                 {m.outdoor && (
-                  <span className="absolute top-3 md:top-4 right-3 md:right-4 bg-info/10 text-info text-[9px] md:text-[10px] font-bold px-2 py-0.5 md:py-1 uppercase tracking-wider z-10 border border-info/20 rounded-md">
+                  <span className="absolute top-3 md:top-4 end-3 md:end-4 bg-info/10 text-info text-[9px] md:text-[10px] font-bold px-2 py-0.5 md:py-1 uppercase tracking-wider z-10 border border-info/20 rounded-md">
                     Outdoor
                   </span>
                 )}
@@ -111,7 +111,7 @@ export function ReferencePage() {
                 </div>
 
                 {m.note && (
-                  <div className="text-sm text-warn-dark mt-3 md:mt-4 italic flex gap-2 items-start bg-warn/5 p-3 border-l-2 border-warn rounded-r-lg">
+                  <div className="text-sm text-warn-dark mt-3 md:mt-4 italic flex gap-2 items-start bg-warn/5 p-3 border-s-2 border-warn rounded-e-lg">
                     <Html value={m.note} />
                   </div>
                 )}
@@ -126,7 +126,7 @@ export function ReferencePage() {
         <div className="grid gap-4 md:gap-8 border-b border-line pb-5 md:pb-7 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-8">
             <span className="hidden md:block font-mono text-[10px] font-bold text-secondary uppercase tracking-widest">{glossary.eyebrow}</span>
-            <h2 className="font-display mt-2 md:mt-4 max-w-[16ch] text-3xl sm:text-5xl md:text-6xl font-semibold leading-tight md:leading-none text-ink uppercase flex items-center gap-3 md:gap-4">
+            <h2 className="font-display mt-2 md:mt-4 max-w-[16ch] text-3xl sm:text-5xl md:text-6xl font-semibold leading-snug md:leading-tight text-ink uppercase flex items-center gap-3 md:gap-4">
               <Book className="w-7 h-7 sm:w-12 sm:h-12 text-secondary shrink-0" />
               <Html value={glossary.h2} />
             </h2>
@@ -161,7 +161,7 @@ export function ReferencePage() {
                     </button>
                   </dt>
                   <dd className={cn(
-                    "text-ink-soft text-sm leading-relaxed border-l-2 border-line pl-3 md:pl-4 transition-all duration-300",
+                    "text-ink-soft text-sm leading-relaxed border-s-2 border-line ps-3 md:ps-4 transition-all duration-300",
                     isOpen ? "block mt-2" : "hidden sm:block"
                   )}>
                     <Html value={t.def} />
@@ -178,7 +178,7 @@ export function ReferencePage() {
         <div className="grid gap-4 md:gap-8 border-b border-line pb-5 md:pb-7 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-8">
             <span className="hidden md:block font-mono text-[10px] font-bold text-accent uppercase tracking-widest">{faq.eyebrow}</span>
-            <h2 className="font-display mt-2 md:mt-4 max-w-[16ch] text-3xl sm:text-5xl md:text-6xl font-semibold leading-tight md:leading-none text-ink uppercase flex items-center gap-3 md:gap-4">
+            <h2 className="font-display mt-2 md:mt-4 max-w-[16ch] text-3xl sm:text-5xl md:text-6xl font-semibold leading-snug md:leading-tight text-ink uppercase flex items-center gap-3 md:gap-4">
               <HelpCircle className="w-7 h-7 sm:w-12 sm:h-12 text-accent shrink-0" />
               <Html value={faq.h2} />
             </h2>
@@ -215,7 +215,7 @@ export function ReferencePage() {
                   "px-4 md:px-6 text-ink-soft leading-relaxed transition-all duration-300 ease-in-out origin-top",
                   isOpen ? "pb-6 md:pb-8 opacity-100 h-auto" : "h-0 opacity-0 py-0 overflow-hidden"
                 )}>
-                  <div className="prose prose-sm dark:prose-invert max-w-2xl prose-a:text-accent prose-a:no-underline hover:prose-a:underline space-y-3 md:space-y-4 border-l-2 border-accent pl-3 md:pl-4 ml-1 md:ml-2">
+                  <div className="prose prose-sm dark:prose-invert max-w-2xl prose-a:text-accent prose-a:no-underline hover:prose-a:underline space-y-3 md:space-y-4 border-s-2 border-accent ps-3 md:ps-4 ms-1 md:ms-2">
                     {q.body.map((p, k) => (
                       <p key={k}><Html value={p} /></p>
                     ))}

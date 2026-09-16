@@ -5,12 +5,9 @@ import { Zap, AlertTriangle, CheckCircle2, Cable, Plug, Plus, Minus, Download } 
 import { useState } from 'react';
 import { cn } from '../lib/utils';
 import { SectionHead } from '../components/SectionHead';
+import { Html } from '../components/Html';
 
 import { StepIllustration } from '../components/Illustrations';
-
-function Html({ value }: { value: string }) {
-  return <span dangerouslySetInnerHTML={{ __html: value }} />;
-}
 
 export function GuidePage() {
   const { lang } = useViewModel(languageViewModel);
@@ -120,7 +117,7 @@ export function GuidePage() {
         </div>
 
         {/* Phases */}
-        <div className="border border-line divide-y divide-line">
+        <div className="border border-line divide-y divide-ink-faint">
           {phases.map((phase, i) => {
             const isOpen = openPhase === i;
             return (
@@ -129,13 +126,13 @@ export function GuidePage() {
                   onClick={() => setOpenPhase(isOpen ? null : i)}
                   className={cn(
                     "w-full flex items-center justify-between gap-4 p-6 md:p-8 text-start focus-visible:outline-none focus-visible:bg-surface-raised transition-colors",
-                    isOpen && "bg-surface"
+                    isOpen ? "bg-surface" : "hover:bg-surface/60"
                   )}
                 >
                   <div className="flex items-center gap-4 min-w-0">
                     <div className={cn(
                       "w-12 h-12 md:w-14 md:h-14 border font-bold text-lg md:text-xl flex items-center justify-center shrink-0 transition-colors",
-                      isOpen ? "bg-accent text-on-accent border-accent" : "border-line text-ink-soft"
+                      isOpen ? "bg-accent text-on-accent border-accent" : "border-ink-faint text-ink-soft"
                     )}>
                       {String(i + 1).padStart(2, '0')}
                     </div>
@@ -146,50 +143,54 @@ export function GuidePage() {
                   </div>
                   <div className={cn(
                     "w-9 h-9 border flex items-center justify-center shrink-0 transition-colors",
-                    isOpen ? "border-ink text-ink" : "border-line text-ink-soft"
+                    isOpen ? "border-ink text-ink" : "border-ink-faint text-ink-soft"
                   )}>
                     {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                   </div>
                 </button>
 
+                {/* grid-rows (not height:auto) so the reveal actually animates
+                    instead of snapping open/closed. */}
                 <div className={cn(
-                  "transition-all duration-300 ease-in-out origin-top bg-surface",
-                  isOpen ? "opacity-100 h-auto pb-6 md:pb-8" : "h-0 opacity-0 overflow-hidden"
+                  "grid transition-[grid-template-rows,opacity] duration-300 ease-in-out bg-surface",
+                  isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                 )}>
-                  <div className="space-y-4 px-4 md:px-8">
-                    {phase.steps.map((step, j) => (
-                      <div key={j} className="border border-line p-5 md:p-6 bg-bg">
-                        <div className="flex gap-4">
-                          <div className="w-8 h-8 border border-line text-ink-soft font-mono text-xs flex items-center justify-center shrink-0">
-                            {i + 1}.{j + 1}
-                          </div>
-                          <div className="flex-1 space-y-3 min-w-0">
-                            <strong className="block text-lg text-ink break-words"><Html value={step.title} /></strong>
-                            {step.body.map((p, k) => (
-                              <p key={k} className="text-ink-soft leading-relaxed break-words">
-                                <Html value={p} />
-                              </p>
-                            ))}
+                  <div className="overflow-hidden">
+                    <div className="space-y-4 px-4 md:px-8 pb-6 md:pb-8">
+                      {phase.steps.map((step, j) => (
+                        <div key={j} className="border border-line p-5 md:p-6 bg-bg">
+                          <div className="flex gap-4">
+                            <div className="w-8 h-8 border border-line text-ink-soft font-mono text-xs flex items-center justify-center shrink-0">
+                              {i + 1}.{j + 1}
+                            </div>
+                            <div className="flex-1 space-y-3 min-w-0">
+                              <strong className="block text-lg text-ink break-words"><Html value={step.title} /></strong>
+                              {step.body.map((p, k) => (
+                                <p key={k} className="text-ink-soft leading-relaxed break-words">
+                                  <Html value={p} />
+                                </p>
+                              ))}
 
-                            {step.detail && (
-                              <div className={cn(
-                                "p-4 mt-4 text-sm flex gap-3 border",
-                                step.detailVariant === 'caution'
-                                  ? "text-warn-dark border-warn/30"
-                                  : "text-info border-info/30"
-                              )}>
-                                {step.detailVariant === 'caution'
-                                  ? <AlertTriangle className="w-5 h-5 shrink-0 text-warn" />
-                                  : <Zap className="w-5 h-5 shrink-0 text-info" />
-                                }
-                                <div className="leading-relaxed opacity-90 break-words"><Html value={step.detail} /></div>
-                              </div>
-                            )}
-                            <StepIllustration stepId={step.id} className="mt-4" />
+                              {step.detail && (
+                                <div className={cn(
+                                  "p-4 mt-4 text-sm flex gap-3 border",
+                                  step.detailVariant === 'caution'
+                                    ? "text-warn-dark border-warn/30"
+                                    : "text-info border-info/30"
+                                )}>
+                                  {step.detailVariant === 'caution'
+                                    ? <AlertTriangle className="w-5 h-5 shrink-0 text-warn" />
+                                    : <Zap className="w-5 h-5 shrink-0 text-info" />
+                                  }
+                                  <div className="leading-relaxed opacity-90 break-words"><Html value={step.detail} /></div>
+                                </div>
+                              )}
+                              <StepIllustration stepId={step.id} className="mt-4" />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

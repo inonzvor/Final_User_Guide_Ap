@@ -5,10 +5,7 @@ import { Server, HelpCircle, Book, Plus, Minus } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '../lib/utils';
 import { SectionHead } from '../components/SectionHead';
-
-function Html({ value }: { value: string }) {
-  return <span dangerouslySetInnerHTML={{ __html: value }} />;
-}
+import { Html } from '../components/Html';
 
 export function ReferencePage() {
   const { lang } = useViewModel(languageViewModel);
@@ -16,11 +13,12 @@ export function ReferencePage() {
   const glossary = getLocalizedGlossary(lang);
   const faq = getLocalizedFaq(lang);
 
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  // Closed by default, matching the phase accordion on the Guide page.
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const getImageForModel = (modelNumber: string) => {
     if (['DS-3WAP522-SI', 'DS-3WAP622G-SI', 'DS-3WAP622E-SI'].includes(modelNumber)) {
-      return '/DS-3WAP522-SI DS-3WAP622G-SI DS-3WAP622E-SI.png';
+      return '/DS-3WAP522-SI_DS-3WAP622G-SI_DS-3WAP622E-SI.png';
     }
     return `/${modelNumber}.png`;
   };
@@ -49,7 +47,13 @@ export function ReferencePage() {
                 <img
                   src={getImageForModel(m.modelNumber)}
                   alt={m.modelNumber}
-                  className="w-full h-full object-contain"
+                  className={cn(
+                    "w-full h-full object-contain",
+                    // These two source photos have a stray colour smudge baked into
+                    // their top-left corner — crop it out of frame instead of
+                    // showing it on every render.
+                    ['DS-3WAP6218-EI', 'DS-3WAP5312-EI'].includes(m.modelNumber) && "scale-125"
+                  )}
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.style.display = 'none';
@@ -152,31 +156,38 @@ export function ReferencePage() {
           description={faq.intro}
         />
 
-        <div className="border border-line divide-y divide-line">
+        <div className="border border-line divide-y divide-ink-faint">
           {faq.items.map((q, i) => {
             const isOpen = openFaq === i;
             return (
               <div key={i} className={cn("transition-colors duration-300", isOpen && "bg-surface")}>
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : i)}
-                  className="w-full text-start px-6 py-5 flex items-center justify-between gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent"
+                  className={cn(
+                    "w-full text-start px-6 py-5 flex items-center justify-between gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent transition-colors",
+                    !isOpen && "hover:bg-surface/60"
+                  )}
                 >
                   <strong className="text-lg text-ink font-medium">{q.title}</strong>
                   <div className={cn(
                     "w-8 h-8 border flex items-center justify-center shrink-0 transition-colors",
-                    isOpen ? "bg-accent text-on-accent border-accent" : "border-line text-ink-soft"
+                    isOpen ? "bg-accent text-on-accent border-accent" : "border-ink-faint text-ink-soft"
                   )}>
                     {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                   </div>
                 </button>
+                {/* grid-rows (not height:auto) so the reveal actually animates
+                    instead of snapping open/closed. */}
                 <div className={cn(
-                  "px-6 text-ink-soft leading-relaxed transition-all duration-300 ease-in-out origin-top",
-                  isOpen ? "pb-6 opacity-100 h-auto" : "h-0 opacity-0 py-0 overflow-hidden"
+                  "grid transition-[grid-template-rows,opacity] duration-300 ease-in-out",
+                  isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                 )}>
-                  <div className="prose prose-sm dark:prose-invert max-w-none prose-a:text-accent prose-a:no-underline hover:prose-a:underline space-y-4">
-                    {q.body.map((p, k) => (
-                      <p key={k}><Html value={p} /></p>
-                    ))}
+                  <div className="overflow-hidden">
+                    <div className="px-6 pb-6 text-ink-soft leading-relaxed space-y-4">
+                      {q.body.map((p, k) => (
+                        <p key={k}><Html value={p} /></p>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

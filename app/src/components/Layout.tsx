@@ -2,12 +2,9 @@ import { useViewModel } from '../useViewModel';
 import { themeViewModel, languageViewModel, navigationViewModel } from '../viewmodels';
 import { Sidebar, MobileHeader, MobileBottomNav } from './Navigation';
 import { InstallBanner } from './InstallBanner';
+import { Html } from './Html';
 import { getLocalizedFooter } from '../../../src';
 import { useEffect, type MouseEvent } from 'react';
-
-function Html({ value }: { value: string }) {
-  return <span dangerouslySetInnerHTML={{ __html: value }} />;
-}
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const theme = useViewModel(themeViewModel);

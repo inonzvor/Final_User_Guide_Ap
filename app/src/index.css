@@ -41,7 +41,7 @@
     --ink-val: oklch(93% 0 0); /* Off-white headline text (not clinical pure white) */
     --ink-soft-val: oklch(58% 0 0); /* Muted gray body / caption text */
     --ink-faint-val: oklch(40% 0 0); /* Dim gray for micro-labels & spec tags */
-    --line-val: oklch(100% 0 0 / 0.1); /* Hairline borders + grid */
+    --line-val: oklch(100% 0 0 / 0.18); /* Hairline borders + grid — kept just visible against near-black */
     --accent-val: oklch(93% 0 0); /* The "identity" tone is white, not a hue */
     --accent-strong-val: oklch(100% 0 0);
     --on-accent-val: oklch(4% 0 0); /* Black text on white accent */
@@ -79,9 +79,25 @@
     @apply bg-bg text-ink font-sans antialiased transition-colors duration-500;
     overflow-x: hidden;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-display tracking-tight;
+  }
+
+  /* Inline links inside translated copy (rendered via dangerouslySetInnerHTML)
+     were falling back to unstyled browser defaults (bright blue, underlined) —
+     jarring against the monochrome blueprint palette. Route them through the
+     theme tokens instead. */
+  a {
+    color: var(--color-accent);
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-ink-faint);
+    text-underline-offset: 2px;
+    transition: color 0.2s, text-decoration-color 0.2s;
+  }
+  a:hover {
+    color: var(--color-accent-strong);
+    text-decoration-color: currentColor;
   }
 }
 

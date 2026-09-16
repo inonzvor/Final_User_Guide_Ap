@@ -3,11 +3,7 @@ import { languageViewModel } from '../viewmodels';
 import { getLocalizedHero, getLocalizedOverview } from '../../../src';
 import { ShieldCheck, Wifi, Globe, Router as RouterIcon, Smartphone, Laptop, ArrowRight, ArrowDown } from 'lucide-react';
 import { SectionHead } from '../components/SectionHead';
-import { cn } from '../lib/utils';
-
-function Html({ value }: { value: string }) {
-  return <span dangerouslySetInnerHTML={{ __html: value }} />;
-}
+import { Html } from '../components/Html';
 
 export function OverviewPage() {
   const { lang } = useViewModel(languageViewModel);
@@ -67,7 +63,7 @@ export function OverviewPage() {
 
             {/* Arrow 1: Internet -> Router */}
             <div className="flex items-center justify-center w-8 h-8 border border-line text-ink-faint shrink-0">
-              <ArrowRight className="w-4 h-4 hidden md:block" strokeWidth={2} />
+              <ArrowRight className="w-4 h-4 hidden md:block rtl:-scale-x-100" strokeWidth={2} />
               <ArrowDown className="w-4 h-4 md:hidden" strokeWidth={2} />
             </div>
 
@@ -81,7 +77,7 @@ export function OverviewPage() {
 
             {/* Arrow 2: Router -> Access Point (Ethernet) */}
             <div className="flex items-center justify-center w-8 h-8 border border-line text-ink-faint shrink-0">
-              <ArrowRight className="w-4 h-4 hidden md:block" strokeWidth={2} />
+              <ArrowRight className="w-4 h-4 hidden md:block rtl:-scale-x-100" strokeWidth={2} />
               <ArrowDown className="w-4 h-4 md:hidden" strokeWidth={2} />
             </div>
 
@@ -97,7 +93,7 @@ export function OverviewPage() {
 
             {/* Arrow 3: Access Point -> Devices (Wi-Fi) */}
             <div className="flex items-center justify-center w-8 h-8 border border-line text-ink-faint shrink-0">
-              <ArrowRight className="w-4 h-4 hidden md:block" strokeWidth={2} />
+              <ArrowRight className="w-4 h-4 hidden md:block rtl:-scale-x-100" strokeWidth={2} />
               <ArrowDown className="w-4 h-4 md:hidden" strokeWidth={2} />
             </div>
 

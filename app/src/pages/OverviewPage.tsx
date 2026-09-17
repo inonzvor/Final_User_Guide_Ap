@@ -1,8 +1,7 @@
 import { useViewModel } from '../useViewModel';
 import { languageViewModel } from '../viewmodels';
 import { getLocalizedHero, getLocalizedOverview } from '../../../src';
-import { ShieldCheck, Wifi, ArrowRightLeft, Globe, Router as RouterIcon, Smartphone, Laptop, ArrowRight, ArrowDown } from 'lucide-react';
-import { cn } from '../lib/utils';
+import { ShieldCheck, Wifi, Globe, Router as RouterIcon, Smartphone, Laptop, ArrowRight, ArrowDown } from 'lucide-react';
 
 function Html({ value }: { value: string }) {
   return <span dangerouslySetInnerHTML={{ __html: value }} />;
@@ -60,11 +59,8 @@ export function OverviewPage() {
         <div className="grid gap-4 md:gap-8 border-b border-line pb-5 md:pb-7 lg:grid-cols-12 lg:items-end mb-6 md:mb-14">
           <div className="lg:col-span-8">
             <span className="hidden md:block font-mono text-[10px] font-bold text-accent uppercase tracking-widest">
-              {ov.diagram.ariaLabel}
+              {ov.eyebrow}
             </span>
-            <h2 className="font-display mt-2 md:mt-4 max-w-[16ch] text-3xl sm:text-5xl md:text-6xl font-semibold leading-snug md:leading-tight text-ink uppercase">
-              <Html value={ov.h2} />
-            </h2>
           </div>
           <p className="max-w-[34ch] text-sm leading-6 text-ink-soft lg:col-span-4">
             <Html value={ov.intro} />

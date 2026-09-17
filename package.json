@@ -27,5 +27,11 @@
     "lucide-react": "^1.43.0",
     "tailwind-merge": "^3.6.0",
     "tailwindcss-animate": "^1.0.7"
+  },
+  "allowScripts": {
+    "esbuild@0.25.12": true
+  },
+  "overrides": {
+    "rollup": "npm:@rollup/wasm-node@4.63.3"
   }
 }

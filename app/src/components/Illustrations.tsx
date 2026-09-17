@@ -117,8 +117,8 @@ export function StepIllustration({ stepId, className }: { stepId: string, classN
              </div>
              
              {/* Expanding rings */}
-             <div className="absolute inset-0 rounded-2xl border-[3px] border-success opacity-20 animate-ping duration-[3000ms]" />
-             <div className="absolute inset-6 rounded-2xl border-2 border-success opacity-10 animate-ping duration-[3000ms] delay-700" />
+             <div className="absolute inset-0 rounded-full border-[3px] border-success opacity-20 animate-ping duration-[3000ms]" />
+             <div className="absolute inset-6 rounded-full border-2 border-success opacity-10 animate-ping duration-[3000ms] delay-700" />
           </div>
         </IllustrationWrapper>
       );

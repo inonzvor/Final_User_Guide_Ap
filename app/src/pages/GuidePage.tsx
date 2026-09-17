@@ -1,7 +1,7 @@
 import { useViewModel } from '../useViewModel';
-import { languageViewModel, installPromptViewModel } from '../viewmodels';
-import { getLocalizedPower, getLocalizedSetupIntro, getLocalizedChecklist, getLocalizedSetupGuide, getLocalizedInstallCopy, getLocalizedNav } from '../../../src';
-import { Zap, AlertTriangle, CheckCircle2, Cable, Plug, Plus, Minus, Download } from 'lucide-react';
+import { languageViewModel } from '../viewmodels';
+import { getLocalizedPower, getLocalizedSetupIntro, getLocalizedChecklist, getLocalizedSetupGuide, getLocalizedNav } from '../../../src';
+import { AlertTriangle, CheckCircle2, Cable, Plug, Plus, Minus } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '../lib/utils';
 import { StepIllustration } from '../components/Illustrations';
@@ -22,9 +22,6 @@ export function GuidePage() {
   const [openPoe, setOpenPoe] = useState<boolean>(false);
   const [openAdapter, setOpenAdapter] = useState<boolean>(false);
   const [openChecklist, setOpenChecklist] = useState<boolean>(false);
-  
-  const installState = useViewModel(installPromptViewModel);
-  const installCopy = getLocalizedInstallCopy(lang);
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -219,7 +216,7 @@ export function GuidePage() {
                     {phase.steps.map((step, k) => (
                       <div key={k} className="relative">
                         <div className="hidden md:block absolute -start-[30px] top-1 w-2 h-2 rounded-full bg-accent ring-4 ring-surface" />
-                        <h4 className="hidden md:block font-mono text-[10px] font-bold text-accent uppercase tracking-widest mb-3">STEP {step.number}</h4>
+                        <h4 className="hidden md:block font-mono text-[10px] font-bold text-accent uppercase tracking-widest mb-3">{step.number}</h4>
                         <div className="prose prose-sm dark:prose-invert max-w-2xl prose-a:text-accent prose-a:no-underline hover:prose-a:underline text-ink-soft leading-relaxed">
                           <p><strong className="font-display text-base md:text-lg text-ink font-semibold uppercase"><Html value={step.title} /></strong></p>
                           {step.body.map((p, pIdx) => <p key={pIdx}><Html value={p} /></p>)}
